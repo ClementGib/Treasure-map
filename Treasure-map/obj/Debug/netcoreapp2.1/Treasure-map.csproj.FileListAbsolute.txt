@@ -17,7 +17,6 @@ C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\bin\Debug\netco
 C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\bin\Debug\netcoreapp2.1\Treasure-map.runtimeconfig.dev.json
 C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\bin\Debug\netcoreapp2.1\Treasure-map.dll
 C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\bin\Debug\netcoreapp2.1\Treasure-map.pdb
-C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\obj\Debug\netcoreapp2.1\Treasure-map.csprojAssemblyReference.cache
 C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\obj\Debug\netcoreapp2.1\Treasure-map.csproj.CoreCompileInputs.cache
 C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\obj\Debug\netcoreapp2.1\Treasure-map.RazorAssemblyInfo.cache
 C:\Users\Cleme\source\repos\ClementGib\Treasure-map\Treasure-map\obj\Debug\netcoreapp2.1\Treasure-map.RazorAssemblyInfo.cs

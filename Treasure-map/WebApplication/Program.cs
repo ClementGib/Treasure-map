@@ -16,12 +16,11 @@ namespace Treasure_map
     {
         public static void Main(string[] args)
         {
-            //string currentPath = Directory.GetCurrentDirectory();
-            //Console.WriteLine(currentPath);
-            //IOManager theManager = IOManager.GetInstance;
-            //string path = "C:\\Users\\Cleme\\source\\repos\\Treasure-map\\Treasure-map\\IO\\input.txt";
+            string currentPath = Directory.GetCurrentDirectory();
+            currentPath += "\\src\\IO\\";
 
-            //theManager.readFile(path);
+            IOManager fileManager = IOManager.GetInstance;
+            fileManager.readFile(currentPath + "input.txt");
 
             CreateWebHostBuilder(args).Build().Run();
         }

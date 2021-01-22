@@ -10,11 +10,11 @@ namespace IO
 {
     public sealed class IOManager
     {
-        const byte width_max = 125;
-        const byte height_max = 250;
+        private const byte width_max = 125;
+        private const byte height_max = 250;
 
         // size of instruction in the input file
-        enum instruction_size
+        private enum instruction_size
         {
             // Letter - Width - Height
             map = 3,
@@ -26,18 +26,18 @@ namespace IO
             adventurer = 6
         }
 
-        Dictionary<string, int> commentaries = new Dictionary<string, int>();
-        protected string map_instruction;
-        protected string adventurer_instruction;
-        protected List<string> mountain_instruction = new List<string>();
-        protected List<string> treasure_instruction = new List<string>();
+        private Dictionary<string, int> commentaries = new Dictionary<string, int>();
+        private string map_instruction;
+        private string adventurer_instruction;
+        private List<string> mountain_instruction = new List<string>();
+        private List<string> treasure_instruction = new List<string>();
 
 
-        private IOManager() { }
 
         // Singleton instance
         private static IOManager instance = null;
 
+        private IOManager() { }
 
 
         public static IOManager GetInstance
@@ -99,7 +99,7 @@ namespace IO
         }
 
 
-        protected bool checkFile(string[] P_inputLines)
+        private bool checkFile(string[] P_inputLines)
         {
 
             //Empty instructions
@@ -312,7 +312,7 @@ namespace IO
 
         public void writeFile()
         {
-
+            ///TODO
         }
 
     }
