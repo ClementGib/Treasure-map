@@ -1,0 +1,7 @@
+# Map size definition
+C - 3 - 4
+# Mountain position
+M - 1 - 0
+M - 2 - 1
+# Adventurer definition
+A - Lara - 1 - 1 - S - AADADAGGA

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Treasure-map", "Treasure-map\Treasure-map.csproj", "{C5933334-9B66-40C3-8394-F749B33A4E7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Treasure-map.NUnitTest", "Treasure-map.NUnitTest\Treasure-map.NUnitTest.csproj", "{9866D50E-6CAF-49FA-A3A7-AAC44098AE76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5933334-9B66-40C3-8394-F749B33A4E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5933334-9B66-40C3-8394-F749B33A4E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5933334-9B66-40C3-8394-F749B33A4E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5933334-9B66-40C3-8394-F749B33A4E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9866D50E-6CAF-49FA-A3A7-AAC44098AE76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9866D50E-6CAF-49FA-A3A7-AAC44098AE76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9866D50E-6CAF-49FA-A3A7-AAC44098AE76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9866D50E-6CAF-49FA-A3A7-AAC44098AE76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03A0E30A-080D-4252-8DC0-0DB7E439773D}
+	EndGlobalSection
+EndGlobal
