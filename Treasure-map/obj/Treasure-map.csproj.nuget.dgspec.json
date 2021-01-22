@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Cleme\\source\\repos\\Treasure-map\\Treasure-map\\Treasure-map.csproj": {}
+    "C:\\Users\\Cleme\\source\\repos\\ClementGib\\Treasure-map\\Treasure-map\\Treasure-map.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Cleme\\source\\repos\\Treasure-map\\Treasure-map\\Treasure-map.csproj": {
+    "C:\\Users\\Cleme\\source\\repos\\ClementGib\\Treasure-map\\Treasure-map\\Treasure-map.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cleme\\source\\repos\\Treasure-map\\Treasure-map\\Treasure-map.csproj",
+        "projectUniqueName": "C:\\Users\\Cleme\\source\\repos\\ClementGib\\Treasure-map\\Treasure-map\\Treasure-map.csproj",
         "projectName": "Treasure-map",
-        "projectPath": "C:\\Users\\Cleme\\source\\repos\\Treasure-map\\Treasure-map\\Treasure-map.csproj",
+        "projectPath": "C:\\Users\\Cleme\\source\\repos\\ClementGib\\Treasure-map\\Treasure-map\\Treasure-map.csproj",
         "packagesPath": "C:\\Users\\Cleme\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cleme\\source\\repos\\Treasure-map\\Treasure-map\\obj\\",
+        "outputPath": "C:\\Users\\Cleme\\source\\repos\\ClementGib\\Treasure-map\\Treasure-map\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
