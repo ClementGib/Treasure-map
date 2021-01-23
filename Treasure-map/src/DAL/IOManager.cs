@@ -27,7 +27,7 @@ namespace DAL
             adventurer = 6
         }
 
-        Instruction InstructionsFromFile = new Instruction();
+        private Instruction instructionFromInput = new Instruction();
   
         // Singleton instance
         private static IOManager instance = null;
@@ -35,6 +35,7 @@ namespace DAL
         private IOManager() { }
 
 
+        public Instruction InstructionFromInput { get => instructionFromInput; }
 
         public static IOManager GetInstance
         {
@@ -75,7 +76,7 @@ namespace DAL
             try
             {
                 //if the file check is conform
-               if(checkFile(readLines))
+               if(checkLine(readLines))
                 {
                     return true;
                 }
@@ -93,15 +94,15 @@ namespace DAL
         }
 
 
-        private bool checkFile(string[] P_inputLines)
+        private bool checkLine(string[] P_inputLines)
         {
 
             //Empty instructions
-            InstructionsFromFile.Commentaries.Clear();
-            InstructionsFromFile.Map_instruction = "";
-            InstructionsFromFile.Adventurer_instruction = "";
-            InstructionsFromFile.Mountain_instruction.Clear();
-            InstructionsFromFile.Treasure_instruction.Clear();
+            InstructionFromInput.Commentaries.Clear();
+            InstructionFromInput.Map_instruction = "";
+            InstructionFromInput.Adventurer_instruction = "";
+            InstructionFromInput.Mountain_instruction.Clear();
+            InstructionFromInput.Treasure_instruction.Clear();
 
             //Define last letter to check the order of the instructions C ...M ...T A
             char lastLetter = '\0';
@@ -115,7 +116,7 @@ namespace DAL
                 if (P_inputLines[index_Lines][0] == '#')
                 {
                     // add commentary with its line position
-                    InstructionsFromFile.Commentaries.Add(P_inputLines[index_Lines], index_Lines);
+                    InstructionFromInput.Commentaries.Add(P_inputLines[index_Lines], index_Lines);
                 }
                 //Else, the line is an instruction
                 else
@@ -135,12 +136,13 @@ namespace DAL
                             if (L_instructions.Length == (int)instruction_size.map && lastLetter == '\0')
                             {
                                 // if map undefined
-                                if (String.IsNullOrEmpty(InstructionsFromFile.Map_instruction))
+                                if (String.IsNullOrEmpty(InstructionFromInput.Map_instruction))
                                 {
                                     //check map size 
                                     if ((Int32.Parse(L_instructions[1]) >=0 && Int32.Parse(L_instructions[1]) <= width_max) && (Int32.Parse(L_instructions[2])>=0 && Int32.Parse(L_instructions[2]) <= height_max))
                                     {
-                                        InstructionsFromFile.Map_instruction = P_inputLines[index_Lines];
+                                        //keep just the map instruction -> setter Map_instruction
+                                        InstructionFromInput.Map_instruction = P_inputLines[index_Lines];
                                         lastLetter = 'C';
                                     }
                                     else
@@ -172,20 +174,23 @@ namespace DAL
                             if (L_instructions.Length == (int)instruction_size.mountain && (lastLetter == 'C' || lastLetter == 'M'))
                             {
                                 //check if position correspond to the map
-                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1])) &&
-                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])))
+                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0])) &&
+                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1])))
                                 {
-                                    if(!InstructionsFromFile.Mountain_instruction.Contains(P_inputLines[index_Lines]))
+                                    if(!InstructionFromInput.Mountain_instruction.Contains(P_inputLines[index_Lines]))
                                     {
-                                        InstructionsFromFile.Mountain_instruction.Add(P_inputLines[index_Lines]);
-                                        lastLetter = 'M';
+                                            //keep just the mountain instructions
+                                            InstructionFromInput.Mountain_instruction.Add(P_inputLines[index_Lines].Split(" - ")[1]
+                                                + " - " + P_inputLines[index_Lines].Split(" - ")[2]);
+                                            lastLetter = 'M';
+                                     
                                     }
                                     
                                 }
                                 else
                                 {
                                     throw new FormatException("File format is invalid : Position mountain should be in the range [" +
-                                        Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1]) +"," +Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2]) 
+                                        Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0]) +"," +Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1]) 
                                         +"]");
                                 }          
                             }
@@ -205,21 +210,25 @@ namespace DAL
                             if (L_instructions.Length == (int)instruction_size.treasure && (lastLetter == 'M' || lastLetter == 'T'))
                             {
                                 //check if position corresponds to the map
-                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1])) &&
-                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])))
+                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0])) &&
+                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1])))
                                 {
 
-                                    if (!InstructionsFromFile.Treasure_instruction.Contains(P_inputLines[index_Lines]))
+                                    if (!InstructionFromInput.Treasure_instruction.Contains(P_inputLines[index_Lines]))
                                     {
-                                        InstructionsFromFile.Treasure_instruction.Add(P_inputLines[index_Lines]);
-                                        lastLetter = 'T';
+                                            //keep just the treasure instructions
+                                            InstructionFromInput.Treasure_instruction.Add(P_inputLines[index_Lines].Split(" - ")[1] 
+                                                + " - " + P_inputLines[index_Lines].Split(" - ")[2] 
+                                                + " - " + P_inputLines[index_Lines].Split(" - ")[3]);
+                                            lastLetter = 'T';
+                                        
                                     }
                                     
                                 }
                                 else
                                 {
                                     throw new FormatException("File format is invalid : Position treasure should be in the range [" +
-                                        Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1]) + "," + Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])
+                                        Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0]) + "," + Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1])
                                         + "]");
                                 }
                             }
@@ -238,11 +247,11 @@ namespace DAL
                             if (L_instructions.Length == (int)instruction_size.adventurer && lastLetter == 'T')
                             {
                                 // if adventurer undefined
-                                if (String.IsNullOrEmpty(InstructionsFromFile.Adventurer_instruction))
+                                if (String.IsNullOrEmpty(InstructionFromInput.Adventurer_instruction))
                                 {
                                     //check if position corresponds to the map
-                                    if ((Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1]))
-                                    && (Int32.Parse(L_instructions[3]) >= 0 && Int32.Parse(L_instructions[3]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])))
+                                    if ((Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0]))
+                                    && (Int32.Parse(L_instructions[3]) >= 0 && Int32.Parse(L_instructions[3]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1])))
                                     {
                                         //check orientation
                                         if (L_instructions[4] == "N" || L_instructions[4] == "S" || L_instructions[4] == "E" || L_instructions[4] == "O")
@@ -259,8 +268,8 @@ namespace DAL
                                                     throw new FormatException("File format is invalid : Movement adventurer should be A or D or G");
                                                 }
                                             }
-
-                                            InstructionsFromFile.Adventurer_instruction = P_inputLines[index_Lines];
+                                            //keep just the adventurer instruction -> setter Adventurer_instruction
+                                            InstructionFromInput.Adventurer_instruction = P_inputLines[index_Lines];
                                             lastLetter = 'A';
                                         }
                                         else
@@ -294,7 +303,7 @@ namespace DAL
             }
 
             //check if every element are initialised
-            if (!string.IsNullOrEmpty(InstructionsFromFile.Map_instruction) && InstructionsFromFile.Mountain_instruction.Any() && InstructionsFromFile.Treasure_instruction.Any() && !string.IsNullOrEmpty(InstructionsFromFile.Adventurer_instruction) )
+            if (!string.IsNullOrEmpty(InstructionFromInput.Map_instruction) && InstructionFromInput.Mountain_instruction.Any() && InstructionFromInput.Treasure_instruction.Any() && !string.IsNullOrEmpty(InstructionFromInput.Adventurer_instruction) )
             {
                 return true;
             }

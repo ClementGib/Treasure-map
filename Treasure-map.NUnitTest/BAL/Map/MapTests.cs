@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using BAL;
 
@@ -9,41 +10,74 @@ namespace UnitTests.IO
     public class MapTests
     {
 
-        private MapTests _map;
+        private Map _map;
 
         protected string path = null;
-        
+        Instruction instructions;
 
 
         [SetUp]
-        public void Setup(string P_instruction)
+        public void Setup(string map_instruction)
         {
-
-            Instruction map_instruction = new Instruction();
-            //_map = Map.GetInstance();
-
-            string currentPath = Directory.GetCurrentDirectory();
-            //set path to current directory files
-            path = Path.GetFullPath(Path.Combine(currentPath, @"..\..\..\DAL"));
+            //TestContext.WriteLine(path);
+            instructions = new Instruction();
         }
 
 
         /// <summary>
-        /// files configuration tests
+        /// Instructions tests
         /// </summary>
-        /// <param name="P_fileName"></param>
 
-        [TestCase("notthere.txt"), Description("File not found")]
-        public void readFile_IfFileNotExists_FileNotFoundException(string P_fileName)
+        [Test, Description("Instruction empty")]
+        public void Map_InstructionIsEmpty_ArgumentNullException()
         {
 
-            //map_instruction
+            //Arrange 
+            
+            if (Map.isInit())
+            {
+                Map.clearMap();
+            }
 
-            TestContext.WriteLine("File name : " + P_fileName);
             //Act & Assert
-            //Assert.Throws<FileNotFoundException>(() => _fileManager.readFile(P_fileName));
+            Assert.Throws<ArgumentNullException>(() => _map = Map.GetInstance(instructions));
+
+  
         }
 
+
+
+        [Test, Description("Good instruction map")]
+        public void Map_InstructionIsGood_ArgumentNullException()
+        {
+
+
+            //Arrange 
+            if (Map.isInit())
+            {
+                Map.clearMap();
+            }
+
+            instructions.Map_instruction = "C - 3 - 4";
+            instructions.Adventurer_instruction = "A - Lara - 1 - 1 - S - AADADAGGA";
+
+            List<string> L_mountain_instruction = new List<string>();
+            L_mountain_instruction.Add("1 - 0");
+            L_mountain_instruction.Add("2 - 1");
+            instructions.Mountain_instruction = L_mountain_instruction;
+
+            List<string> L_treasure_instruction = new List<string>();
+            L_treasure_instruction.Add("0 - 3 - 2");
+            L_treasure_instruction.Add("1 - 3 - 3");
+
+            instructions.Treasure_instruction = L_treasure_instruction;
+
+            //Act
+            //bool returnValue = _fileManager.readFile(basicPath+P_fileName);
+
+            //Assert -> 1 return code signify that the file is Okay
+            //Assert.AreEqual(true, returnValue);
+        }
 
 
 

@@ -14,12 +14,12 @@ namespace BAL
         private const byte height_max = 250;
 
         //x
-        private static byte width;
+        private static byte width = 0;
         //y
-        private static byte height;
+        private static byte height = 0;
 
         // 2D map grid of surfaces with position on the matrix (Dictionary<TKey,TValue>)
-        private static Dictionary<Position, Surface> mapGrid = new Dictionary<Position, Surface>();
+        private static Dictionary<Position, Surface> mapGrids = new Dictionary<Position, Surface>();
 
         // Singleton instance
         private static Map instance = null;
@@ -29,11 +29,29 @@ namespace BAL
 
             try
             {
+                width = Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[1]);
+                height = Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[2]);
+            }
+            catch (Exception exception)
+            {
+
+                if (P_Instruction.isNull())
+                {
+                    throw new ArgumentNullException("Instruction not defined : All the instructions should be defined");
+                }
+                else
+                {
+                    throw new ArgumentException("Map instruction is incorrectly defined");
+                }
+                
+            }
+
+            try
+            {
 
             
             //Map creation
-            width = Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[1]);
-            height = Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[2]);
+            
 
             //Add the mountain(s) to the map
             foreach(string mountain in P_Instruction.Mountain_instruction)
@@ -57,7 +75,7 @@ namespace BAL
                 for (byte index_width = 0; index_width < width; index_width++)
                 {
                     //define all the map with plain surface
-                    mapGrid.Add(new Position(index_width, index_height), new Plain());
+                    mapGrids.Add(new Position(index_width, index_height), new Plain());
 
                 }
             }
@@ -80,11 +98,30 @@ namespace BAL
                 return instance;
         }
 
+        public static bool isInit()
+        {
+            if (instance == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
+        public static void clearMap()
+        {
+            width = 0;
+            height = 0;
+            mapGrids.Clear();
+            instance = null;
+
+        }
 
         public bool checkPositionIsNotDefined(Position P_Position)
         {
-            Console.WriteLine(mapGrid.ContainsKey(P_Position).ToString());
+            Console.WriteLine(mapGrids.ContainsKey(P_Position).ToString());
             return true;
         } 
 

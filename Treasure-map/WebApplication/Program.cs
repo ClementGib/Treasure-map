@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 using DAL;
+using BAL;
+
 
 namespace Treasure_map
 {
@@ -21,6 +23,10 @@ namespace Treasure_map
 
             IOManager fileManager = IOManager.GetInstance;
             fileManager.readFile(currentPath + "input.txt");
+
+
+            Map TheMap = Map.GetInstance(fileManager.InstructionFromInput);
+
 
             CreateWebHostBuilder(args).Build().Run();
         }
