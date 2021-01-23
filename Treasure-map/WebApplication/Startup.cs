@@ -35,7 +35,9 @@ namespace Treasure_map
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                //await context.Response.WriteAsync("Hello World!");
+                //app.UseDefaultFiles();
+                //app.UseStaticFiles();
             });
         }
     }

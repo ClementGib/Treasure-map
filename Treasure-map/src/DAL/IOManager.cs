@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BAL;
 
 
 
-namespace IO
+namespace DAL
 {
     public sealed class IOManager
     {
@@ -26,18 +27,13 @@ namespace IO
             adventurer = 6
         }
 
-        private Dictionary<string, int> commentaries = new Dictionary<string, int>();
-        private string map_instruction;
-        private string adventurer_instruction;
-        private List<string> mountain_instruction = new List<string>();
-        private List<string> treasure_instruction = new List<string>();
-
-
-
+        Instruction InstructionsFromFile = new Instruction();
+  
         // Singleton instance
         private static IOManager instance = null;
 
         private IOManager() { }
+
 
 
         public static IOManager GetInstance
@@ -94,8 +90,6 @@ namespace IO
                 exception.Data.Add("detail message :", " input file is incorrectly defined.");
                 throw;
             }
-
-            return false;
         }
 
 
@@ -103,11 +97,11 @@ namespace IO
         {
 
             //Empty instructions
-            commentaries.Clear();
-            map_instruction = "";
-            adventurer_instruction = "";
-            mountain_instruction.Clear();
-            treasure_instruction.Clear();
+            InstructionsFromFile.Commentaries.Clear();
+            InstructionsFromFile.Map_instruction = "";
+            InstructionsFromFile.Adventurer_instruction = "";
+            InstructionsFromFile.Mountain_instruction.Clear();
+            InstructionsFromFile.Treasure_instruction.Clear();
 
             //Define last letter to check the order of the instructions C ...M ...T A
             char lastLetter = '\0';
@@ -121,7 +115,7 @@ namespace IO
                 if (P_inputLines[index_Lines][0] == '#')
                 {
                     // add commentary with its line position
-                    commentaries.Add(P_inputLines[index_Lines], index_Lines);
+                    InstructionsFromFile.Commentaries.Add(P_inputLines[index_Lines], index_Lines);
                 }
                 //Else, the line is an instruction
                 else
@@ -141,12 +135,12 @@ namespace IO
                             if (L_instructions.Length == (int)instruction_size.map && lastLetter == '\0')
                             {
                                 // if map undefined
-                                if (String.IsNullOrEmpty(map_instruction))
+                                if (String.IsNullOrEmpty(InstructionsFromFile.Map_instruction))
                                 {
                                     //check map size 
                                     if ((Int32.Parse(L_instructions[1]) >=0 && Int32.Parse(L_instructions[1]) <= width_max) && (Int32.Parse(L_instructions[2])>=0 && Int32.Parse(L_instructions[2]) <= height_max))
                                     {
-                                        map_instruction = P_inputLines[index_Lines];
+                                        InstructionsFromFile.Map_instruction = P_inputLines[index_Lines];
                                         lastLetter = 'C';
                                     }
                                     else
@@ -178,12 +172,12 @@ namespace IO
                             if (L_instructions.Length == (int)instruction_size.mountain && (lastLetter == 'C' || lastLetter == 'M'))
                             {
                                 //check if position correspond to the map
-                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(map_instruction.Split(" - ")[1])) &&
-                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(map_instruction.Split(" - ")[2])))
+                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1])) &&
+                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])))
                                 {
-                                    if(!mountain_instruction.Contains(P_inputLines[index_Lines]))
+                                    if(!InstructionsFromFile.Mountain_instruction.Contains(P_inputLines[index_Lines]))
                                     {
-                                        mountain_instruction.Add(P_inputLines[index_Lines]);
+                                        InstructionsFromFile.Mountain_instruction.Add(P_inputLines[index_Lines]);
                                         lastLetter = 'M';
                                     }
                                     
@@ -191,7 +185,7 @@ namespace IO
                                 else
                                 {
                                     throw new FormatException("File format is invalid : Position mountain should be in the range [" +
-                                        Int32.Parse(map_instruction.Split(" - ")[1]) +"," +Int32.Parse(map_instruction.Split(" - ")[2]) 
+                                        Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1]) +"," +Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2]) 
                                         +"]");
                                 }          
                             }
@@ -211,13 +205,13 @@ namespace IO
                             if (L_instructions.Length == (int)instruction_size.treasure && (lastLetter == 'M' || lastLetter == 'T'))
                             {
                                 //check if position corresponds to the map
-                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(map_instruction.Split(" - ")[1])) &&
-                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(map_instruction.Split(" - ")[2])))
+                                if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1])) &&
+                                    (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])))
                                 {
 
-                                    if (!treasure_instruction.Contains(P_inputLines[index_Lines]))
+                                    if (!InstructionsFromFile.Treasure_instruction.Contains(P_inputLines[index_Lines]))
                                     {
-                                        treasure_instruction.Add(P_inputLines[index_Lines]);
+                                        InstructionsFromFile.Treasure_instruction.Add(P_inputLines[index_Lines]);
                                         lastLetter = 'T';
                                     }
                                     
@@ -225,7 +219,7 @@ namespace IO
                                 else
                                 {
                                     throw new FormatException("File format is invalid : Position treasure should be in the range [" +
-                                        Int32.Parse(map_instruction.Split(" - ")[1]) + "," + Int32.Parse(map_instruction.Split(" - ")[2])
+                                        Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1]) + "," + Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])
                                         + "]");
                                 }
                             }
@@ -244,11 +238,11 @@ namespace IO
                             if (L_instructions.Length == (int)instruction_size.adventurer && lastLetter == 'T')
                             {
                                 // if adventurer undefined
-                                if (String.IsNullOrEmpty(adventurer_instruction))
+                                if (String.IsNullOrEmpty(InstructionsFromFile.Adventurer_instruction))
                                 {
                                     //check if position corresponds to the map
-                                    if ((Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(map_instruction.Split(" - ")[1]))
-                                    && (Int32.Parse(L_instructions[3]) >= 0 && Int32.Parse(L_instructions[3]) < Int32.Parse(map_instruction.Split(" - ")[2])))
+                                    if ((Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[1]))
+                                    && (Int32.Parse(L_instructions[3]) >= 0 && Int32.Parse(L_instructions[3]) < Int32.Parse(InstructionsFromFile.Map_instruction.Split(" - ")[2])))
                                     {
                                         //check orientation
                                         if (L_instructions[4] == "N" || L_instructions[4] == "S" || L_instructions[4] == "E" || L_instructions[4] == "O")
@@ -266,7 +260,7 @@ namespace IO
                                                 }
                                             }
 
-                                            adventurer_instruction = P_inputLines[index_Lines];
+                                            InstructionsFromFile.Adventurer_instruction = P_inputLines[index_Lines];
                                             lastLetter = 'A';
                                         }
                                         else
@@ -300,7 +294,7 @@ namespace IO
             }
 
             //check if every element are initialised
-            if (!string.IsNullOrEmpty(map_instruction) && mountain_instruction.Any() && treasure_instruction.Any() && !string.IsNullOrEmpty(adventurer_instruction) )
+            if (!string.IsNullOrEmpty(InstructionsFromFile.Map_instruction) && InstructionsFromFile.Mountain_instruction.Any() && InstructionsFromFile.Treasure_instruction.Any() && !string.IsNullOrEmpty(InstructionsFromFile.Adventurer_instruction) )
             {
                 return true;
             }

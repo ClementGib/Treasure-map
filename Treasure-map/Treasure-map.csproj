@@ -5,12 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\map\" />
+    <Folder Include="src\UI\" />
+    <Folder Include="wwwroot\content\images\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\icon\it.svg" />
+    <None Include="wwwroot\content\icons\it.svg" />
     <None Include="wwwroot\index.html" />
     <None Include="wwwroot\style\StyleSheet.css" />
   </ItemGroup>

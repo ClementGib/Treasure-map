@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.IO;
-using IO;
+using DAL;
 
 namespace UnitTests.IO
 {
@@ -22,7 +22,7 @@ namespace UnitTests.IO
 
             string currentPath = Directory.GetCurrentDirectory();
             //set path to current directory files
-            path = Path.GetFullPath(Path.Combine(currentPath, @"..\..\..\IO"));
+            path = Path.GetFullPath(Path.Combine(currentPath, @"..\..\..\DAL"));
         }
 
 
