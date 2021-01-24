@@ -7,7 +7,7 @@ namespace BAL
 {
     public sealed class Instruction
     {
-        private Dictionary<string, int> commentaries = new Dictionary<string, int>();
+        private Dictionary<int, string> commentaries = new Dictionary< int, string>();
         private string map_instruction;
         private List<string> mountain_instruction = new List<string>();
         private List<string> treasure_instruction = new List<string>();
@@ -22,9 +22,22 @@ namespace BAL
 
  
 
-        public Dictionary<string, int> Commentaries{
+        public Dictionary<int, string> Commentaries{
             get => commentaries;
-            set => commentaries = value;
+            set
+            {
+                var item = value.First();
+                   if (!commentaries.ContainsKey( item.Key))
+                    {
+                        commentaries.Add(item.Key,item.Value);
+                    }
+                else
+                {
+                    throw new ArgumentException("Instruction commentaries is incorrectly set");
+
+                }
+                
+            }
         }
         public string Map_instruction
         {
@@ -79,7 +92,7 @@ namespace BAL
                     }
                     else
                     {
-                        if (mountain_insctruction.Split(" - ").Length == 2)
+                        if (Char.IsNumber(char.Parse(mountain_insctruction.Split(" - ")[0])) && mountain_insctruction.Split(" - ").Length == 2)
                         {
                             //already refactor
                             temp_instruction.Add(mountain_insctruction);
@@ -100,6 +113,8 @@ namespace BAL
             get => treasure_instruction;
             set
             {
+
+             
                 List<string> temp_instruction = new List<string>();
 
                 foreach (string treasure_instruction in value)
@@ -114,7 +129,7 @@ namespace BAL
                     }
                     else
                     {
-                        if (treasure_instruction.Split(" - ").Length == 3)
+                        if (Char.IsNumber(char.Parse(treasure_instruction.Split(" - ")[0])) && treasure_instruction.Split(" - ").Length == 3)
                         {
                             //already refactor
                             temp_instruction.Add(treasure_instruction);

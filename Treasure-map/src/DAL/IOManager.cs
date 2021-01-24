@@ -28,7 +28,7 @@ namespace DAL
         }
 
         private Instruction instructionFromInput = new Instruction();
-  
+
         // Singleton instance
         private static IOManager instance = null;
 
@@ -76,7 +76,7 @@ namespace DAL
             try
             {
                 //if the file check is conform
-               if(checkLine(readLines))
+                if (checkLine(readLines))
                 {
                     return true;
                 }
@@ -115,8 +115,12 @@ namespace DAL
                 //if the line is a commentary
                 if (P_inputLines[index_Lines][0] == '#')
                 {
+                    //temp_commentaries to use overriden setter -> Instruction.Commentaries
+                    Dictionary<int,string> temp_commentaries = new Dictionary<int, string>();
+                    temp_commentaries.Add(index_Lines, P_inputLines[index_Lines]);
+
                     // add commentary with its line position
-                    InstructionFromInput.Commentaries.Add(P_inputLines[index_Lines], index_Lines);
+                    InstructionFromInput.Commentaries = temp_commentaries;
                 }
                 //Else, the line is an instruction
                 else
@@ -129,7 +133,7 @@ namespace DAL
                         //Map definition
                         case 'C':
 
-                            
+
                             L_instructions = P_inputLines[index_Lines].Split(" - ");
 
                             // check instruction string size && if it is the first instruction
@@ -139,7 +143,7 @@ namespace DAL
                                 if (String.IsNullOrEmpty(InstructionFromInput.Map_instruction))
                                 {
                                     //check map size 
-                                    if ((Int32.Parse(L_instructions[1]) >=0 && Int32.Parse(L_instructions[1]) <= width_max) && (Int32.Parse(L_instructions[2])>=0 && Int32.Parse(L_instructions[2]) <= height_max))
+                                    if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) <= width_max) && (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) <= height_max))
                                     {
                                         //keep just the map instruction -> setter Map_instruction
                                         InstructionFromInput.Map_instruction = P_inputLines[index_Lines];
@@ -167,7 +171,7 @@ namespace DAL
                         //Mountain definition
                         case 'M':
 
-                            
+
                             L_instructions = P_inputLines[index_Lines].Split(" - ");
 
                             // check instruction string size && if it is the second instruction
@@ -177,22 +181,22 @@ namespace DAL
                                 if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0])) &&
                                     (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) < Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1])))
                                 {
-                                    if(!InstructionFromInput.Mountain_instruction.Contains(P_inputLines[index_Lines]))
+                                    if (!InstructionFromInput.Mountain_instruction.Contains(P_inputLines[index_Lines]))
                                     {
-                                            //keep just the mountain instructions
-                                            InstructionFromInput.Mountain_instruction.Add(P_inputLines[index_Lines].Split(" - ")[1]
-                                                + " - " + P_inputLines[index_Lines].Split(" - ")[2]);
-                                            lastLetter = 'M';
-                                     
+                                        //keep just the mountain instructions
+                                        InstructionFromInput.Mountain_instruction.Add(P_inputLines[index_Lines].Split(" - ")[1]
+                                            + " - " + P_inputLines[index_Lines].Split(" - ")[2]);
+                                        lastLetter = 'M';
+
                                     }
-                                    
+
                                 }
                                 else
                                 {
                                     throw new FormatException("File format is invalid : Position mountain should be in the range [" +
-                                        Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0]) +"," +Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1]) 
-                                        +"]");
-                                }          
+                                        Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[0]) + "," + Int32.Parse(InstructionFromInput.Map_instruction.Split(" - ")[1])
+                                        + "]");
+                                }
                             }
                             else
                             {
@@ -205,7 +209,7 @@ namespace DAL
 
                             L_instructions = P_inputLines[index_Lines].Split(" - ");
 
-                       
+
                             // check instruction string size && if it is the third instruction
                             if (L_instructions.Length == (int)instruction_size.treasure && (lastLetter == 'M' || lastLetter == 'T'))
                             {
@@ -216,14 +220,14 @@ namespace DAL
 
                                     if (!InstructionFromInput.Treasure_instruction.Contains(P_inputLines[index_Lines]))
                                     {
-                                            //keep just the treasure instructions
-                                            InstructionFromInput.Treasure_instruction.Add(P_inputLines[index_Lines].Split(" - ")[1] 
-                                                + " - " + P_inputLines[index_Lines].Split(" - ")[2] 
-                                                + " - " + P_inputLines[index_Lines].Split(" - ")[3]);
-                                            lastLetter = 'T';
-                                        
+                                        //keep just the treasure instructions
+                                        InstructionFromInput.Treasure_instruction.Add(P_inputLines[index_Lines].Split(" - ")[1]
+                                            + " - " + P_inputLines[index_Lines].Split(" - ")[2]
+                                            + " - " + P_inputLines[index_Lines].Split(" - ")[3]);
+                                        lastLetter = 'T';
+
                                     }
-                                    
+
                                 }
                                 else
                                 {
@@ -281,7 +285,7 @@ namespace DAL
                                     else
                                     {
                                         throw new FormatException("File format is invalid : Map size limited to [125,250] ");
-                                    }      
+                                    }
                                 }
                                 // Multiple A lines
                                 else
@@ -303,11 +307,12 @@ namespace DAL
             }
 
             //check if every element are initialised
-            if (!string.IsNullOrEmpty(InstructionFromInput.Map_instruction) && InstructionFromInput.Mountain_instruction.Any() && InstructionFromInput.Treasure_instruction.Any() && !string.IsNullOrEmpty(InstructionFromInput.Adventurer_instruction) )
+            if (!string.IsNullOrEmpty(InstructionFromInput.Map_instruction) && InstructionFromInput.Mountain_instruction.Any() && InstructionFromInput.Treasure_instruction.Any() && !string.IsNullOrEmpty(InstructionFromInput.Adventurer_instruction))
             {
                 return true;
             }
-            else{
+            else
+            {
                 throw new FormatException("File format is invalid : element definition is missing");
             }
         }

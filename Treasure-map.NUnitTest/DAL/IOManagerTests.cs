@@ -202,5 +202,30 @@ namespace UnitTests.IO
 
 
 
+
+        ///// <summary>
+        ///// file format Okay
+        ///// </summary>
+        ///// <param name="P_fileName"></param>
+
+        //[TestCase("basicFile.txt"), Description("Good input files")]
+        //[TestCase("advancedFile.txt")]
+        //public void readFile_IfFileFormatOkay_ReturnTrue(string P_fileName)
+        //{
+        //    TestContext.WriteLine(path);
+
+        //    //Arrange 
+        //    string basicPath = path + "\\Basic\\";
+
+
+        //    //Act
+        //    bool returnValue = _fileManager.readFile(basicPath + P_fileName);
+
+        //    //Assert -> 1 return code signify that the file is Okay
+        //    Assert.AreEqual(true, returnValue);
+        //}
+
+
+
     }
 }
