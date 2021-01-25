@@ -9,6 +9,9 @@ namespace BAL
 {
         protected bool accessible;
         protected int imageNumber;
+
+
+        public abstract bool getAccessible();
         public abstract int getImageValue();
 
     }

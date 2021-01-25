@@ -20,7 +20,22 @@ namespace BAL
 
         }
 
- 
+        public Instruction(Dictionary<int, string> P_commentaries,
+            string P_map_instruction,
+            List<string> P_mountain_instruction,
+            List<string> P_treasure_instruction,
+            string P_adventurer_instruction
+            )
+        {
+            commentaries = P_commentaries;
+            map_instruction = P_map_instruction;
+            mountain_instruction = P_mountain_instruction;
+            treasure_instruction = P_treasure_instruction;
+            adventurer_instruction = P_adventurer_instruction;
+
+        }
+
+
 
         public Dictionary<int, string> Commentaries{
             get => commentaries;

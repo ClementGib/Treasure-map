@@ -17,6 +17,11 @@ namespace BAL
             
         }
 
+        public override bool getAccessible()
+        {
+            return accessible;
+        }
+
         public override int getImageValue()
         {
             return imageNumber;

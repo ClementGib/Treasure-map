@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using DAL;
 
-namespace UnitTests.IO
+namespace UnitTests.DAL.IOTests
 {
     [TestFixture]
     public class IOManagerTests

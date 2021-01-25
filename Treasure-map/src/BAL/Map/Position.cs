@@ -36,15 +36,5 @@ namespace BAL
 
 
 
-        /// <summary>
-        /// Override method to compar 2 Positions
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            if (x == null || y == null) return 0;
-            return x.GetHashCode() + y.GetHashCode();
-        }
-
     }
 }

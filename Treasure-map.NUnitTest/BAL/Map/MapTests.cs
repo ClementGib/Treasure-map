@@ -2,126 +2,237 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using DAL;
 using BAL;
 
-namespace UnitTests.IO
+namespace UnitTests.BAL.MapTests
 {
     [TestFixture]
     public class MapTests
     {
 
-        private Map _map;
-
+        private Instruction _instruction;
         protected string path = null;
-        Instruction instructions;
 
 
         [SetUp]
-        public void Setup(string map_instruction)
+        public void Setup()
         {
-            //TestContext.WriteLine(path);
-            instructions = new Instruction();
+
+            Dictionary<int, string> temp_commentaries = new Dictionary<int, string>();
+            temp_commentaries.Add(0, "# Map size definition");
+            temp_commentaries.Add(2, "# Mountain position");
+            temp_commentaries.Add(5, "# Treasure chest position");
+            temp_commentaries.Add(8, "# Adventurer definition");
+
+            string temp_map_instruction = "3 - 4";
+
+            List<string> temp_mountain_instruction = new List<string>();
+            temp_mountain_instruction.Add("1 - 0");
+            temp_mountain_instruction.Add("2 - 1");
+
+            List<string> temp_treasure_instruction = new List<string>();
+            temp_treasure_instruction.Add("0 - 3 - 2");
+            temp_treasure_instruction.Add("1 - 3 - 3");
+
+            string temp_adventurer_instruction = "Lara - 1 - 1 - S - AADADAGGA";
+
+            _instruction = new Instruction(temp_commentaries,
+                temp_map_instruction,
+                temp_mountain_instruction,
+                temp_treasure_instruction,
+                temp_adventurer_instruction
+                );
+        }
+
+
+
+        /// <summary>
+        /// Map is correctly defined
+        /// </summary>
+        [Test, Description("Map correctly defined.")]
+        public void isInit_InstructionIsCorrectlyDefine_True()
+        {
+            //Arrange 
+            Map _map;
+
+            //Act
+            _map = Map.GetInstance(_instruction);
+
+            //Map is correctly define
+            Assert.AreEqual(true, Map.isInit());
         }
 
 
         /// <summary>
-        /// Instructions tests
+        /// Map initialisation tests with wrong instructions
         /// </summary>
 
-        [Test, Description("Instruction empty")]
-        public void Map_InstructionIsEmpty_ArgumentNullException()
+        [Test, Description("Instruction is incorrectly defined")]
+        public void GetInstance_InstructionIncorrectlyDefined_ArgumentException()
         {
-
             //Arrange 
+            Map _map;
+
+            //Act 
+            if (Map.isInit())
+            {
+                Map.clearMap();
+            }
+            //badly defined
+            _instruction.Mountain_instruction.Add("M - 1 - 0");
+
+            //Assert
+            Assert.Throws<FormatException>(() => _map = Map.GetInstance(_instruction));
+
+
+
+        }
+
+        /// <summary>
+        /// Map initialisation tests with empty instructions
+        /// </summary>
+
+        [Test, Description("Instruction is empty")]
+        public void GetInstance_InstructionIsEmpty_ArgumentNullException()
+        {
+            //Arrange 
+            Instruction empty_instruction = new Instruction();
+            Map _map;
+
+            //Act 
+            if (Map.isInit())
+            {
+                Map.clearMap();
+            }
+
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => _map = Map.GetInstance(empty_instruction));
+
+
+
+        }
+
+
+        /// <summary>
+        /// Map initialisation is too big 
+        /// width min:0 - width max:125, 
+        /// height min:0 - height max:250
+        /// </summary>
+
+        [Test, Description("Map instructions are too big")]
+        public void GetInstance_InstructionSizeAreTooBig_ArgumentNullException()
+        {
+            //Arrange 
+            Instruction empty_instruction = new Instruction();
+            Map _map;
+
+            //Act 
+            if (Map.isInit())
+            {
+                Map.clearMap();
+            }
             
-            if (Map.isInit())
-            {
-                Map.clearMap();
-            }
+            _instruction.Map_instruction = "128 - 251";
 
-            //Act & Assert
-            Assert.Throws<ArgumentNullException>(() => _map = Map.GetInstance(instructions));
-
-  
-        }
-
-
-
-        [Test, Description("Good instruction map")]
-        public void Map_InstructionIsGood_ArgumentNullException()
-        {
-
-
-            //Arrange 
-            if (Map.isInit())
-            {
-                Map.clearMap();
-            }
-
-            instructions.Map_instruction = "C - 3 - 4";
-            instructions.Adventurer_instruction = "A - Lara - 1 - 1 - S - AADADAGGA";
-
-            List<string> L_mountain_instruction = new List<string>();
-            L_mountain_instruction.Add("1 - 0");
-            L_mountain_instruction.Add("2 - 1");
-            instructions.Mountain_instruction = L_mountain_instruction;
-
-            List<string> L_treasure_instruction = new List<string>();
-            L_treasure_instruction.Add("0 - 3 - 2");
-            L_treasure_instruction.Add("1 - 3 - 3");
-
-            instructions.Treasure_instruction = L_treasure_instruction;
-
-            //Act
-            //bool returnValue = _fileManager.readFile(basicPath+P_fileName);
-
-            //Assert -> 1 return code signify that the file is Okay
-            //Assert.AreEqual(true, returnValue);
+            //Assert
+            Assert.Throws<ArgumentException>(() => _map = Map.GetInstance(_instruction));
         }
 
 
 
         /// <summary>
-        /// file format Okay
+        /// Map not init tests 
         /// </summary>
-        /// <param name="P_fileName"></param>
 
-        [TestCase("basicFile.txt"), Description("Good input files")]
-        [TestCase("advancedFile.txt")]
-        public void readFile_IfFileFormatOkay_ReturnTrue(string P_fileName)
+        [Test, Description("Map is not initialise")]
+        public void isInit_MapIsEmpty_IsFalse()
         {
-            TestContext.WriteLine(path);
-
             //Arrange 
-            string basicPath = path + "\\Basic\\";
+            Map _map = Map.GetInstance(_instruction);
+
+            //Act 
+            if (Map.isInit())
+            {
+                Map.clearMap();
+            }
+
+            //Assert
+            Assert.IsFalse(Map.isInit());
 
 
-            //Act
-            //bool returnValue = _fileManager.readFile(basicPath+P_fileName);
-
-            //Assert -> 1 return code signify that the file is Okay
-            //Assert.AreEqual(true, returnValue);
         }
+
 
 
         /// <summary>
-        /// wrong attribute test
+        /// Map position is already set with the same key
         /// </summary>
-        /// <param name="P_fileName"></param>
 
-        [TestCase("wrongAttribute.txt"), Description("Wrong attribute definition")]
-        public void readFile_IfWrongAttribute_ReturnFormatException(string P_fileName)
+        [Test, Description("Map position is already set with the same key, check with checkPositionIsNotDefined() ")]
+        public void checkPositionIsNotDefined_MapPositionAlreadySet_IsFalse()
         {
-
             //Arrange 
-            string basicPath = path + "\\Basic\\";
+            Map _map = Map.GetInstance(_instruction);
 
-            //Act & Assert 
-            //Assert.Throws<FormatException>(() => _fileManager.readFile(basicPath + P_fileName));
+            //Act 
+            Position temp_position = new Position(1, 0);
+
+            //Assert
+            Assert.IsFalse(_map.checkPositionIsDefined(temp_position));
+
         }
 
 
-       
+
+        /// <summary>
+        /// Map position is not set with the same key
+        /// </summary>
+
+        [Test, Description("Map position is not set with the same key, check with checkPositionIsNotDefined() ")]
+        public void checkPositionIsNotDefined_MapPositionNotSet_IsTrue()
+        {
+            //Arrange 
+            Map _map = Map.GetInstance(_instruction);
+
+            //Act 
+            Position temp_position = new Position(2, 0);
+
+            //Assert
+            Assert.IsFalse(_map.checkPositionIsDefined(temp_position));
+
+        }
+
+
+
+        /// <summary>
+        /// get value with position in the temp map
+        /// </summary>
+
+        [Test, Description("Map position is not set with the same key, check with checkPositionIsNotDefined() ")]
+        public void getValueByPosition_MapPositionNotSet_IsTrue()
+        {
+            ////Arrange 
+            //Map _map = Map.GetInstance(_instruction);
+
+            //Dictionary<Position, Surface> temp_mapGrids = new Dictionary<Position, Surface>();
+            //temp_mapGrids.Add(new Position(1,0), new Mountain());
+            //temp_mapGrids.Add(new Position(1, 2), new Mountain());
+            //temp_mapGrids.Add(new Position(0, 1), new Treasure(2));
+            //temp_mapGrids.Add(new Position(1, 0), new Treasure(3));
+
+            ////Act 
+            //Surface returnPosition = _map.getValueByPosition(temp_mapGrids, new Position(0, 1));
+
+            ////Assert
+            //Assert.IsFalse(_map.checkPositionIsNotDefined(temp_position));
+
+        }
+
+
+
+
+        
 
     }
-}
+    }

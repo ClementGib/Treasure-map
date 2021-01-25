@@ -19,7 +19,7 @@ namespace Treasure_map
         public static void Main(string[] args)
         {
             string currentPath = Directory.GetCurrentDirectory();
-            currentPath += "\\src\\IO\\";
+            currentPath += "\\src\\DAL\\";
 
             IOManager fileManager = IOManager.GetInstance;
             fileManager.readFile(currentPath + "input.txt");

@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using BAL;
 
-namespace UnitTests.IO
+namespace UnitTests.BAL.InstructionsTests
 {
     [TestFixture]
     public class InstructionTests

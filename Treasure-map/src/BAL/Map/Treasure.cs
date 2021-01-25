@@ -7,61 +7,26 @@ namespace BAL
 {
     public sealed class Treasure : Surface
     {
+        const byte number_max = 5;
+        private byte numberChest;
 
-        int amount;
-
-        Treasure(string P_treasureInstruction)
+        public Treasure(byte P_treasureNumber)
         {
 
             accessible = true;
-
-            //amount max of treasure is defined as 5
-            amount = Int32.Parse(P_treasureInstruction.Split(" - ")[3]) >= 5 ?  5 :  Int32.Parse(P_treasureInstruction.Split(" - ")[3]);
+            //number_max of treasure is defined as 5
+            numberChest = P_treasureNumber >= number_max ? number_max : P_treasureNumber;
             setImage();
         }
 
-
-        protected void setImage()
+        public override bool getAccessible()
         {
-
-            if (amount >= 5)
+            if (numberChest >= 0)
             {
-                imageNumber = 5;
+                numberChest--;
+                setImage();
             }
-            else
-            {
-
-                if (amount >= 3)
-                {
-                    imageNumber = 4;
-                }
-                else
-                {
-                    if (amount == 2)
-                    {
-                        imageNumber = 3;
-                    }
-                    else
-                    {
-                        if (amount == 1)
-                        {
-                            imageNumber = 2;
-                        }
-                        else
-                        {
-                            imageNumber = 1;
-                        }
-                        
-                    }
-                }
-
-            }
-        }
-
-        public void getTreasureChest()
-        {
-            amount--;
-            setImage();
+            return accessible;
         }
 
 
@@ -69,5 +34,48 @@ namespace BAL
         {
             return imageNumber;
         }
+
+
+        private void setImage()
+        {
+
+            if (numberChest >= 5)
+            {
+                imageNumber = 5;
+            }
+            else
+            {
+
+                if (numberChest >= 3)
+                {
+                    imageNumber = 4;
+                }
+                else
+                {
+                    if (numberChest == 2)
+                    {
+                        imageNumber = 3;
+                    }
+                    else
+                    {
+                        if (numberChest == 1)
+                        {
+                            imageNumber = 2;
+                        }
+                        else
+                        {
+                            imageNumber = 1;
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+
     }
+
+
+
 }

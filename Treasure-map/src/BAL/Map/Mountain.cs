@@ -8,13 +8,18 @@ namespace BAL
     public sealed class Mountain : Surface
 {
 
-        Mountain()
+        public Mountain()
         {
             accessible = false;
 
             var rand = new Random();
             imageNumber = rand.Next(1,6);
             
+        }
+
+        public override bool getAccessible()
+        {
+            return accessible;
         }
 
         public override int getImageValue()
