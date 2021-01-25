@@ -22,6 +22,8 @@ namespace BAL
 
         // 2D map grid of surfaces with position on the matrix (Dictionary<TKey,TValue>)
         private static Dictionary<Position, Surface> mapGrids = new Dictionary<Position, Surface>();
+
+        // Adventurer of the Map 
         Adventurer TheAdventurer;
 
         /* Init Map */
