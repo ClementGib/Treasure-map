@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Treasure_map</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="src\UI\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\content\icons\it.svg" />
+    <None Include="wwwroot\content\txt\form.txt" />
+    <None Include="wwwroot\content\txt\input.txt" />
+    <None Include="wwwroot\content\txt\output.txt" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\js\script.js" />
+    <None Include="wwwroot\js\test.js" />
+    <None Include="wwwroot\style\StyleSheet.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>

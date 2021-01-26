@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style/StyleSheet.css" />
+    <script type="text/javascript" src="js/script.js" ></script>
+    <script type="text/javascript" src="js/test.js" ></script>
+
+</head>
+<body>
+    <header class="main-head">
+        <nav class="navbar">
+            <img class="logo-navbar" src="/content/icons/it.svg" />
+
+            <!--
+                        <div class="cours-navbar">
+                          <button class="btn-navbar"><span>Cours</span></button>
+                          <div class="bar-navbar"></div>
+                        </div> -->
+        </nav>
+    </header>
+
+    <section class="definition-map">
+        <h1>La carte aux trésors</h1>
+        <div class="map-background">
+            <img src="/content/images/map.png" alt="" />
+        </div>
+        <div id="map">
+
+            <script>
+                function saveTextAsFile() {
+                    var fs = require('fs');
+
+                    fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+                        if (err) throw err;
+                        console.log('Saved!');
+                    });
+                }
+            </script>
+        </div>
+    </section>
+
+    <!-- SELECTED FILE FORM-->
+    <section class="input-map">
+        <div class="log">
+            <h2 class="log-error"></h2>
+        </div>
+
+        <div class="inputs">
+            <div class="input-file">
+                <label>Configuration depuis un fichier :</label>
+                <form class="form-file" action="" method="get">
+                    <label for="file-selector">Choisir un fichier</label>
+                    <input type="file" id="file-selector" hidden />
+                    <input id="file-sender" type="submit" value="Envoyer" />
+                </form>
+            </div>
+
+            <!-- TEXT AREA FORM -->
+            <div class="input-text">
+                <label for="upload-photo">Configuration depuis du texte :</label>
+                <textarea id="textArea" name="instructions" rows="10" cols="100">
+    # {Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur} 
+    C - 3 - 4
+    # {Montagne} - {Axe horizontal} - {Axe vertical} 
+    M - 1 - 0
+    M - 2 - 1
+    # {Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors} 
+    T - 0 - 3 - 2
+    T - 1 - 3 - 3
+    # {Aventurier} - {Nom} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Mouvement} 
+    A - Lara - 1 - 1 - S - AADADAGGA</textarea>
+                    <input  onclick="hello()" value="Envoyer" />
+
+            </div>
+
+
+            <div class="output-download">
+                <div class="download-div">
+                    <label for="upload-photo">Télécharger le fichier de sortie</label>
+                    <button >Télécharger</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
