@@ -230,9 +230,24 @@ namespace UnitTests.BAL.MapTests
         }
 
 
+        [Test, Description("Return the amount number of the treasures on map")]
+        public void getNumberOfTreasure_NbOfTreasureIs5_IsTrue()
+        {
+            //Arrange 
+            Map _map = Map.GetInstance(_instruction);
+
+            //Act 
+            int number = _map.getNumberOfTreasure();
+
+            //Assert
+            Assert.IsTrue(number==5);
+
+        }
 
 
         
+
+
 
     }
     }
