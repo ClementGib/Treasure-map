@@ -31,7 +31,7 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 <p> A - Lara - 0 - 3 - S - 3 </p>
 
 ## Prérequis :
-<p>.NET CORE  `5.0` has `back-ticks around` it.</p>
+.NET CORE  `5.0` has `back-ticks around` it.
 
 ### Lancer le projet :
 ```javascript
