@@ -10,25 +10,33 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 ### Fichier de config attendu :
 <div style="text-align:center">
 
-| {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur}   |
+1. {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur} 
+
+|  letter - number - number |
 |  :----:     | 
 | C - 3 - 4   | 
 
 <p> </p>
 
-| {M comme Montagne} - {Axe horizontal} - {Axe vertical}  |
+2. {M comme Montagne} - {Axe horizontal} - {Axe vertical}
+
+| letter - number - number   |
 |  :----:     | 
 |M - 1 - 1  | 
 
 <p> </p>
 
-| {T comme Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors} |
+3. {T comme Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors} 
+
+| letter - number - number - number |
 |  :----:       |
 | T - 0 - 3 - 2 | 
 
 <p> </p>
 
-| {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Séquence de mouvement} |
+4. {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Séquence de mouvement}
+
+| letter - string - number - number - letter - string |
 |  :----:       |
 | A - Indiana - 1 - 1 - S - AADADA | 
 
