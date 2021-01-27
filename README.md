@@ -36,7 +36,27 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 
  * Treasure-map : Application web .NET CORE
  
- ⋅⋅* Treasure-map.NUnitTest : Tests unitaires de l'application avec NUnit
+ * Treasure-map.NUnitTest : Tests unitaires de l'application avec NUnit
+ 
+ <p> Malgré les contraintes de temps je souhaitais réaliser un affichage graphique, tout en répondant au besoin initiale. </p>
+ 
+  * l'UI est une page web statique définie par une feuille de style et un script JavaScript
+  
+  * L'application .NET CORE gère lecture des instructions ainsi que toute la logique applicative comme la génération de cartes aléatoire (images affichés).
+  
+  * L'UI est alimenté par des requêtes HTTP définissant la position des éléments et son évolution.
+  
+  * Le projet de test permet de valider la couche fonctionnelle de l'application en cas d'évolution
+  
+### Insersion de données :
+<p>L'insersion des données se fait au travers d'un </p>
+
+`textarea` ou d'un `fichier.txt`
+
+
+
+<p>L'application permet de générer un fichier de sortie indiquant la position de la carte actuelle sous forme de text </p>
+ 
 
 ## Prérequis :
 `.NET CORE SDK 5.0`
