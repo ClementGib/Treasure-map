@@ -37,12 +37,12 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 ### Lancer le projet :
 <p>Restaurer les dépandances</p>
 ```console
-dotnet restore
+dotnet restore 
 ```
  
 <p>Construire le projet</p>
 ```console
-dotnet restore
+dotnet restore 
 ```
 
 <p>Lancer le projet</p>
