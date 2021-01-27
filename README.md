@@ -30,24 +30,30 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 <p> {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Nb. trésors ramassés} </p>
 <p> A - Lara - 0 - 3 - S - 3 </p>
 
+
+## Information :
+<p>Le projet est décomposé en deux projets : 
+* Treasure-map : Application web .NET CORE
+* Treasure-map.NUnitTest : Tests unitaires de l'application avec NUnit
+
 ## Prérequis :
 `.NET CORE SDK 5.0`
 `IIS sever (IIS Express de Visual Studio ou VSCode extension)`
 
 ### Lancer le projet :
-<p>Restaurer les dépandances</p>
+<p>Restaurer les dépandances:</p>
 
 ```console
 dotnet restore 
 ```
  <p></p>
-<p>Construire le projet</p>
+<p>Construire le projet:</p>
 
 ```console
 dotnet build 
 ```
 <p></p>
-<p>Lancer le projet</p>
+<p>Lancer le projet:</p>
 
 ```console
 dotnet run 
