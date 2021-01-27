@@ -6,7 +6,7 @@ km² du département de la Madre de Dios. Vous devez réaliser un système perme
 déplacements et les collectes de trésors effectuées par les aventuriers. Le gouvernement péruvien
 étant très à cheval sur les bonnes pratiques de code, il est important de réaliser un code de qualité,
 lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
-
+<p>
 <p> {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur} </p>
 <p> C - 3 - 4 </p>
 
@@ -19,7 +19,8 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 <p> {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Séquence de mouvement} </p>
 <p> A - Indiana - 1 - 1 - S - AADADA </p>
 
-
+<p>
+  
 <p> Exemple : </p>
 <p> C - 3 - 4 </p>
 <p> M - 1 - 0 </p>
