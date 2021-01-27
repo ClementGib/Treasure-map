@@ -66,7 +66,7 @@ un fomulaire `textarea` ou un `fichier.txt`
 
 <p>Les multiples erreurs lié aux instructions sont gérées et affiché à l'écran</p>
  
-![](image/error1.PNG )
+![](image/error1.png )
  
 ![](image/error2.PNG )
 
