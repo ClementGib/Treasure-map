@@ -45,14 +45,17 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 </div>
 
 ### Format de sortie attendu :
-<p> Voici le format de sortie : </p>
-<p> C - 3 - 4 </p>
-<p> M - 1 - 0 </p>
-<p> M - 2 - 1 </p>
-<p> {T comme Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors restants} </p>
-<p> T - 1 - 3 - 2 </p>
-<p> {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Nb. trésors ramassés} </p>
-<p> A - Lara - 0 - 3 - S - 3 </p>
+#### Voici le format de sortie : </p>
+
+| Syntax      |
+| ----------- |
+| C - 3 - 4    |
+| M - 1 - 0    | 
+| M - 2 - 1       |
+| T - 1 - 3 - 2    | 
+| C - 3 - 4       |
+| A - Lara - 0 - 3 - S - 3    |
+
 
 ### Démonstration 
 
