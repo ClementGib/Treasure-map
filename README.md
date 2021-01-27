@@ -49,3 +49,8 @@ dotnet restore
 ```console
 dotnet run 
 ```
+
+```console
+foo@bar:~$ whoami
+foo
+```
