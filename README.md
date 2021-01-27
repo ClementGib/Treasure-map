@@ -30,6 +30,10 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 <p> {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Nb. trésors ramassés} </p>
 <p> A - Lara - 0 - 3 - S - 3 </p>
 
+### Démonstration 
+
+![](image/treasure-map.gif)
+
 
 ## Information :
 <p>Le projet est décomposé en deux projets : </p>
@@ -42,21 +46,29 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
  
   * l'UI est une page web statique définie par une feuille de style et un script JavaScript
   
-  * L'application .NET CORE gère lecture des instructions ainsi que toute la logique applicative comme la génération de cartes aléatoire (images affichés).
+  * L'application .NET CORE gère lecture des instructions ainsi que toute la logique applicative comme la génération de cartes scalable et aléatoire (images affichés).
   
   * L'UI est alimenté par des requêtes HTTP définissant la position des éléments et son évolution.
   
   * Le projet de test permet de valider la couche fonctionnelle de l'application en cas d'évolution
   
+![](image/screen.png) 
+  
 ### Insersion de données :
-<p>L'insersion des données se fait au travers d'un </p>
+<p>L'insersion des instructions se fait à l'aide de : </p>
 
-`textarea` ou d'un `fichier.txt`
+un fomulaire `textarea` ou un `fichier.txt`
 
-
-
-<p>L'application permet de générer un fichier de sortie indiquant la position de la carte actuelle sous forme de text </p>
+<p>L'application permet de générer un fichier de sortie indiquant la nouvelle position des points sur la carte</p>
  
+![](image/form.PNG )
+
+
+<p>Les multiples erreurs lié aux instructions sont gérées et affiché à l'écran</p>
+ 
+![](image/error1.png )
+ 
+![](image/error2.PNG )
 
 ## Prérequis :
 `.NET CORE SDK 5.0`
