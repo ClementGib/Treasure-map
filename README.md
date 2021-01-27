@@ -32,7 +32,7 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 
 
 ## Information :
-<p>Le projet est décomposé en deux projets : 
+<p>Le projet est décomposé en deux projets : </p>
 ⋅⋅* Treasure-map : Application web .NET CORE
 ⋅⋅* Treasure-map.NUnitTest : Tests unitaires de l'application avec NUnit
 
