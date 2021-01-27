@@ -8,6 +8,7 @@ déplacements et les collectes de trésors effectuées par les aventuriers. Le g
 lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 
 ### Fichier de config attendu :
+<div style="text-align:center">
 
 | {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur}   |
 |  :----:     | 
@@ -32,6 +33,8 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 | A - Indiana - 1 - 1 - S - AADADA | 
 
 <p> </p>
+
+</div>
 
 ### Format de sortie attendu :
 <p> Voici le format de sortie : </p>
