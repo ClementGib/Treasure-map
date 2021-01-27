@@ -10,20 +10,28 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 ### Fichier de config attendu :
 
 | {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur}   |
-| :---        | 
+|  :----:     | 
 | C - 3 - 4   | 
-| Paragraph   | 
-<p> 
-<p> C - 3 - 4 </p>
 
-<p> {M comme Montagne} - {Axe horizontal} - {Axe vertical} </p>
-<p> M - 1 - 1 </p>
+<p> </p>
 
-<p> {T comme Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors} </p>
-<p> T - 0 - 3 - 2 </p>
+| {M comme Montagne} - {Axe horizontal} - {Axe vertical}  |
+|  :----:     | 
+|M - 1 - 1  | 
 
-<p> {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Séquence de mouvement} </p>
-<p> A - Indiana - 1 - 1 - S - AADADA </p>
+<p> </p>
+
+| {T comme Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors} |
+|  :----:       |
+| T - 0 - 3 - 2 | 
+
+<p> </p>
+
+| {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Séquence de mouvement} |
+|  :----:       |
+| A - Indiana - 1 - 1 - S - AADADA | 
+
+<p> </p>
 
 ### Format de sortie attendu :
 <p> Voici le format de sortie : </p>
