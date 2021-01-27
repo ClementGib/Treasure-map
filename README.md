@@ -33,8 +33,8 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 
 ## Information :
 <p>Le projet est décomposé en deux projets : 
-* Treasure-map : Application web .NET CORE
-* Treasure-map.NUnitTest : Tests unitaires de l'application avec NUnit
+ * Treasure-map : Application web .NET CORE
+ * Treasure-map.NUnitTest : Tests unitaires de l'application avec NUnit
 
 ## Prérequis :
 `.NET CORE SDK 5.0`
