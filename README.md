@@ -44,7 +44,7 @@ dotnet restore
 <p>Construire le projet</p>
 
 ```console
-dotnet restore 
+dotnet build 
 ```
 <p></p>
 <p>Lancer le projet</p>
