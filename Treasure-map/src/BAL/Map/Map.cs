@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
 using DAL;
+
 
 namespace BAL
 {
-    public sealed class Map
+    [Serializable()]
+    public sealed class Map : ISerializable
     {
         // Singleton instance
         private static Map instance = null;
@@ -359,6 +364,39 @@ namespace BAL
             return numberChest;
         }
 
+        //Serialisation for the JSON POST
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            try
+            {
+                info.AddValue("width", width);
+                info.AddValue("height", height);
+                info.AddValue("mapGridsKeys", mapGrids.Keys);
+                info.AddValue("mapGridsValues", mapGrids.Values);
+                info.AddValue("Adventurer", TheAdventurer);
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+
+        }
+
+        //Deserialisation from the JSON POST
+        public Map(SerializationInfo info, StreamingContext context)
+        {
+            try
+            {
+                width = (byte)info.GetValue("width", typeof(byte));
+                height = (byte)info.GetValue("height", typeof(byte));
+                mapGrids = (Dictionary<Position, Surface>)info.GetValue("width", typeof(Dictionary<Position, Surface>));
+                TheAdventurer = (Adventurer)info.GetValue("TheAdventurer", typeof(Adventurer));
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
 
     }
 }

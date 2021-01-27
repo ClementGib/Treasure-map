@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace BAL
 {
-    public sealed class Treasure : Surface
+    [Serializable()]
+    public sealed class Treasure : Surface, ISerializable
     {
         const byte number_max = 5;
         private byte numberChest;
@@ -80,6 +82,20 @@ namespace BAL
             }
         }
 
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            try
+            {
+                info.AddValue("surface", this.GetType().Name);
+                info.AddValue("accessible", accessible);
+                info.AddValue("imageNumber", imageNumber);
+                info.AddValue("numberChest", numberChest);
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
 
     }
 

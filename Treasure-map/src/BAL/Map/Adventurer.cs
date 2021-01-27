@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BAL
 {
 
-
-    public sealed class Adventurer
+    [Serializable()]
+    public sealed class Adventurer : ISerializable
     {
         string name;
         byte xPosition;
@@ -52,7 +54,7 @@ namespace BAL
             movement = P_adventurer_instruction.Split(" - ")[4].ToCharArray();
         }
 
-        /* check if possible to move*/ 
+        /* check if possible to move*/
         public Position wantMove()
         {
             if (movementStep < movement.Length)
@@ -61,13 +63,13 @@ namespace BAL
                 {
                     // return the next position   
                     return getNextPosition();
-                    
+
                 }
                 else
                 {
                     if (movement[movementStep] == 'D' || movement[movementStep] == 'G')
                     {
-                        
+
                         return new Position(xPosition, yPosition);
 
                     }
@@ -239,6 +241,23 @@ namespace BAL
 
         }
 
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            try
+            {
+                info.AddValue("name", name);
+                info.AddValue("yPosition", yPosition);
+                info.AddValue("xPosition", xPosition);
+                info.AddValue("orientation", orientation);
+                info.AddValue("movement", movement);
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+
+
+        }
     }
 
 }

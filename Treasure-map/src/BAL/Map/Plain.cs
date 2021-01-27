@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace BAL
 {
-    public sealed class Plain : Surface
+    [Serializable()]
+    public sealed class Plain : Surface, ISerializable
     {
 
         public Plain()
@@ -26,5 +28,20 @@ namespace BAL
         {
             return imageNumber;
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            try
+            {
+                info.AddValue("surface", this.GetType().Name);
+                info.AddValue("accessible", accessible);
+                info.AddValue("imageNumber", imageNumber);
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
+

@@ -13,16 +13,24 @@ using BAL;
 
 namespace Treasure_map
 {
-    public class Program
+    public static class Program
     {
 
-        static Map TheMap;
+        public static Map TheMap;
 
         public static Instruction GetInstructionFromFile(string P_nameFile)
         {
             string path = Directory.GetCurrentDirectory() + "\\wwwroot\\content\\txt\\";
             IOManager fileManager = IOManager.GetInstance;
-            fileManager.readFile(path + P_nameFile);
+            fileManager.readInstructionsFile(path + P_nameFile);
+
+            return fileManager.InstructionFromInput;
+        }
+
+        public static Instruction GetInstructionFromText(string P_textContent)
+        {
+            IOManager fileManager = IOManager.GetInstance;
+            fileManager.readInstructionsText(P_textContent);
 
             return fileManager.InstructionFromInput;
         }
@@ -34,8 +42,6 @@ namespace Treasure_map
 
         public static void Main(string[] args)
         {
-
-            CreateMap(GetInstructionFromFile("input.txt"));
             CreateHostBuilder(args).Build().Run();
         }
 

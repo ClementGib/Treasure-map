@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using BAL;
 
 
@@ -49,7 +49,8 @@ namespace DAL
             }
         }
 
-        public bool readFile(string P_fileName)
+        
+        public bool readInstructionsFile(string P_fileName)
         {
 
             string[] readLines = null;
@@ -92,8 +93,55 @@ namespace DAL
                 throw;
             }
         }
+        public bool readInstructionsText(string P_text)
+        {
+            string[] readLines = null;
+            try
+            {
+                //for each line from the text area 
+                List<string> temp = new List<string>();
+                foreach (string line in P_text.Split("\\n"))
+                {
+                    if( line.ToCharArray()[0] == '\"' || line.ToCharArray()[line.Length-1] == '\"')
+                    {
+                        temp.Add(line.Replace("\"",""));
+                    }
+                    else{
+                        temp.Add(line);
+                    }
+
+                    
+ 
+                }
+                readLines = temp.ToArray();
+
+            }
+            catch (Exception exception)
+            {
+                exception.Data.Add("detail message :", "Error text area");
+                throw;
+            }
 
 
+            try
+            {
+                //if the file check is conform
+                if (checkLine(readLines))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (FormatException exception)
+            {
+                Console.WriteLine("FormatException error occurs, input file is incorrectly defined.");
+                exception.Data.Add("detail message :", " input file is incorrectly defined.");
+                throw;
+            }
+        }
         private bool checkLine(string[] P_inputLines)
         {
 
@@ -116,7 +164,7 @@ namespace DAL
                 if (P_inputLines[index_Lines][0] == '#')
                 {
                     //temp_commentaries to use overriden setter -> Instruction.Commentaries
-                    Dictionary<int,string> temp_commentaries = new Dictionary<int, string>();
+                    Dictionary<int, string> temp_commentaries = new Dictionary<int, string>();
                     temp_commentaries.Add(index_Lines, P_inputLines[index_Lines]);
 
                     // add commentary with its line position

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Runtime.Serialization;
 namespace BAL
 {
-    public class Position
+    [Serializable()]
+    public class Position : ISerializable
     {
         private int x;
         private int y;
@@ -26,6 +27,19 @@ namespace BAL
         {
             get => y;
             set => y = value;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            try
+            {
+                info.AddValue("x", x);
+                info.AddValue("y", y);
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void setPosition(int P_x, int P_y)

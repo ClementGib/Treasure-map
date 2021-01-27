@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style/StyleSheet.css" />
-    <script type="text/javascript" src="js/script.js" ></script>
-    <script type="text/javascript" src="js/test.js" ></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/test.js"></script>
 
 </head>
 <body>
@@ -60,29 +60,25 @@
             <div class="input-text">
                 <label for="upload-photo">Configuration depuis du texte :</label>
                 <textarea id="textArea" name="instructions" rows="10" cols="100">
-    # {Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur} 
-    C - 3 - 4
-    # {Montagne} - {Axe horizontal} - {Axe vertical} 
-    M - 1 - 0
-    M - 2 - 1
-    # {Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors} 
-    T - 0 - 3 - 2
-    T - 1 - 3 - 3
-    # {Aventurier} - {Nom} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Mouvement} 
-    A - Lara - 1 - 1 - S - AADADAGGA</textarea>
-                    <input  onclick="hello()" value="Envoyer" />
-
+# {Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur}
+C - 3 - 4
+# {Montagne} - {Axe horizontal} - {Axe vertical}
+M - 1 - 0
+M - 2 - 1
+# {Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors}
+T - 0 - 3 - 2
+T - 1 - 3 - 3
+# {Aventurier} - {Nom} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Mouvement}
+A - Lara - 1 - 1 - S - AADADAGGA</textarea>
+                <input onclick="SendData()" value="Envoyer" />
             </div>
-
-
             <div class="output-download">
                 <div class="download-div">
                     <label for="upload-photo">Télécharger le fichier de sortie</label>
-                    <button >Télécharger</button>
+                    <button>Télécharger</button>
                 </div>
             </div>
         </div>
     </section>
 </body>
 </html>
-

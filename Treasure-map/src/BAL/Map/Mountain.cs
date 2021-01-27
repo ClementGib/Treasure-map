@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace BAL
 {
-    public sealed class Mountain : Surface
+    [Serializable()]
+    public sealed class Mountain : Surface, ISerializable
 {
 
         public Mountain()
@@ -25,6 +27,20 @@ namespace BAL
         public override int getImageValue()
         {
             return imageNumber;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            try
+            {
+                info.AddValue("surface", this.GetType().Name);
+                info.AddValue("accessible", accessible);
+                info.AddValue("imageNumber", imageNumber);
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

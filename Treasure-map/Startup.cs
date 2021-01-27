@@ -7,9 +7,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Net;
+using System.Text;
+using Newtonsoft.Json;
+using System.IO;
+
+//using Newtonsoft.Json;
+using BAL;
+
 
 namespace Treasure_map
 {
+
+
+
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -18,6 +30,12 @@ namespace Treasure_map
         {
             services.AddAuthorization();
             services.AddControllers();
+
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,11 +61,28 @@ namespace Treasure_map
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+
+                endpoints.MapPost("/input", async context =>
+                {
+                    var bodyStr = "";
+                    var req = context.Request;
+
+                    using (StreamReader reader = new StreamReader(req.Body, Encoding.UTF8, true, 1024, true))
+                    {
+                        bodyStr = reader.ReadToEnd();
+                    }
+
+                    Program.CreateMap(Program.GetInstructionFromText(bodyStr));
+                    string json = JsonConvert.SerializeObject(Program.TheMap, Formatting.Indented);
+                    await context.Response.WriteAsync(json);
+                });
+
+
+
             });
 
 
-          
+
 
         }
     }
