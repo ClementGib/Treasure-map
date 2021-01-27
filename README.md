@@ -8,7 +8,12 @@ déplacements et les collectes de trésors effectuées par les aventuriers. Le g
 lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 
 ### Fichier de config attendu :
-<p> {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur} </p>
+
+| {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur}   |
+| :---        | 
+| C - 3 - 4   | 
+| Paragraph   | 
+<p> 
 <p> C - 3 - 4 </p>
 
 <p> {M comme Montagne} - {Axe horizontal} - {Axe vertical} </p>
