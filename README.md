@@ -30,6 +30,10 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 <p> {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Nb. trésors ramassés} </p>
 <p> A - Lara - 0 - 3 - S - 3 </p>
 
+### Démonstration 
+
+![](image/treasure-map.gif)
+
 
 ## Information :
 <p>Le projet est décomposé en deux projets : </p>
@@ -60,11 +64,11 @@ un fomulaire `textarea` ou un `fichier.txt`
 ![](image/form.PNG )
 
 
-
-### Démonstration 
-
-![](image/treasure-map.gif)
-
+<p>Les multiples erreurs lié aux instructions sont gérées et affiché à l'écran</p>
+ 
+![](image/error1.PNG )
+ 
+![](image/error2.PNG )
 
 ## Prérequis :
 `.NET CORE SDK 5.0`
