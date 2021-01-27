@@ -45,7 +45,6 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 </div>
 
 ### Format de sortie attendu :
-#### Voici le format de sortie : </p>
 
 | Syntax      |
 | ----------- |
