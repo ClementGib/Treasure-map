@@ -5,6 +5,7 @@
     <RootNamespace>Treasure_map</RootNamespace>
   </PropertyGroup>
 
+
   <ItemGroup>
     <Folder Include="src\UI\" />
   </ItemGroup>
@@ -12,6 +13,19 @@
 
   <ItemGroup>
     <None Include="wwwroot\content\icons\it.svg" />
+    <None Include="wwwroot\content\images\map.png" />
+    <None Include="wwwroot\content\images\treasure.png" />
+    <None Include="wwwroot\content\images\adventurer.png" />
+    <None Include="wwwroot\content\images\P1.png" />
+    <None Include="wwwroot\content\images\P2.png" />
+    <None Include="wwwroot\content\images\P3.png" />
+    <None Include="wwwroot\content\images\P5.png" />
+    <None Include="wwwroot\content\images\M1.png" />
+    <None Include="wwwroot\content\images\M2.png" />
+    <None Include="wwwroot\content\images\M3.png" />
+    <None Include="wwwroot\content\images\M4.png" />
+    <None Include="wwwroot\content\images\M5.png" />
+    
     <None Include="wwwroot\content\txt\form.txt" />
     <None Include="wwwroot\content\txt\input.txt" />
     <None Include="wwwroot\content\txt\output.txt" />
@@ -22,10 +36,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Composition" Version="5.0.1" />
+    <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
   </ItemGroup>
 
 </Project>

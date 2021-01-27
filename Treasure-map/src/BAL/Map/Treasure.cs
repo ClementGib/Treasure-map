@@ -27,6 +27,15 @@ namespace BAL
             return numberChest;
         }
 
+        public void getChest()
+        {
+            if (numberChest > 0)
+            {
+                numberChest--;
+                setImage();
+            }
+
+        }
 
         public override bool getAccessible()
         {

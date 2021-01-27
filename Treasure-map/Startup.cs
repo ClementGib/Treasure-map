@@ -3,16 +3,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Threading.Tasks;
+using System.Web;
 using System.Text;
 using Newtonsoft.Json;
 using System.IO;
-
+using System;
 //using Newtonsoft.Json;
 using BAL;
 
@@ -62,8 +63,11 @@ namespace Treasure_map
             app.UseEndpoints(endpoints =>
             {
 
-                endpoints.MapPost("/input", async context =>
+                endpoints.MapPost("/text", async context =>
                 {
+                    //clear the map
+                    Map.clearMap();
+
                     var bodyStr = "";
                     var req = context.Request;
 
@@ -72,11 +76,137 @@ namespace Treasure_map
                         bodyStr = reader.ReadToEnd();
                     }
 
-                    Program.CreateMap(Program.GetInstructionFromText(bodyStr));
-                    string json = JsonConvert.SerializeObject(Program.TheMap, Formatting.Indented);
-                    await context.Response.WriteAsync(json);
+                    try
+                    {
+                        Program.CreateMap(Program.GetInstructionFromText(bodyStr));
+                        string json = JsonConvert.SerializeObject(Program.TheMap, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+                    catch(Exception exception)
+                    {
+                        string json = JsonConvert.SerializeObject(exception, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+                    
                 });
 
+                endpoints.MapPost("/file", async context =>
+                {
+                    //clear the map
+                    Map.clearMap();
+
+                    try
+                    {
+
+                        string root = "~/wwwroot/content/txt";
+                    var provider = new MultipartFormDataStreamProvider(root);
+
+    
+
+                    }
+                    catch (System.Exception e)
+                    {          
+                    }
+
+                    var bodyStr = "";
+                    var req = context.Request;
+
+                    using (StreamReader reader = new StreamReader(req.Body, Encoding.UTF8, true, 1024, true))
+                    {
+                        bodyStr = reader.ReadToEnd();
+                    }
+
+                    try
+                    {
+                        Program.CreateMap(Program.GetInstructionFromFile(bodyStr));
+                        string json = JsonConvert.SerializeObject(Program.TheMap, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+                    catch (Exception exception)
+                    {
+                        string json = JsonConvert.SerializeObject(exception, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+
+                });
+
+
+
+                endpoints.MapPost("/move", async context =>
+                {
+
+                    var bodyStr = "";
+                    var req = context.Request;
+
+                    using (StreamReader reader = new StreamReader(req.Body, Encoding.UTF8, true, 1024, true))
+                    {
+                        bodyStr = reader.ReadToEnd();
+                    }
+
+                    try
+                    {
+                        Program.TheMap.AdventurerMoveStepByStep();
+                        
+                        string json = JsonConvert.SerializeObject(Program.TheMap.Adventurer, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+                    catch (Exception exception)
+                    {
+                        string json = JsonConvert.SerializeObject(exception, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+
+                });
+
+                endpoints.MapPost("/treasure", async context =>
+                {
+
+                    var bodyStr = "";
+                    var req = context.Request;
+
+                    using (StreamReader reader = new StreamReader(req.Body, Encoding.UTF8, true, 1024, true))
+                    {
+                        bodyStr = reader.ReadToEnd();
+                    }
+
+                    try
+                    {
+                        //clean x
+                        string x = bodyStr.Split(" - ")[0];
+                        string temp="";
+                        for (int index_x = 0; index_x < x.Length; index_x++)
+                        {
+                            if (Char.IsDigit(x[index_x]))
+                                temp += x[index_x];
+                        }
+                        byte P_x = byte.Parse(temp);
+
+                        temp = "";
+                        //clean x
+                        string y = bodyStr.Split(" - ")[1];
+                        for (int index_y = 0; index_y < y.Length; index_y++)
+                        {
+                            if (Char.IsDigit(y[index_y]))
+                                temp += y[index_y];
+                        }
+                        byte P_y = byte.Parse(temp);
+
+
+                        //get a treasure from the box
+                        Program.TheMap.getTreasure(P_x, P_y);
+                        //transform null treasure to Plain
+                        Program.TheMap.updateMapGrid();
+
+                        string json = JsonConvert.SerializeObject(Program.TheMap, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+                    catch (Exception exception)
+                    {
+                        string json = JsonConvert.SerializeObject(exception, Formatting.Indented);
+                        await context.Response.WriteAsync(json);
+                    }
+
+                });
 
 
             });

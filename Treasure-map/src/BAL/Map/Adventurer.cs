@@ -250,6 +250,7 @@ namespace BAL
                 info.AddValue("xPosition", xPosition);
                 info.AddValue("orientation", orientation);
                 info.AddValue("movement", movement);
+                info.AddValue("movementStep", movementStep);
             }
             catch
             {

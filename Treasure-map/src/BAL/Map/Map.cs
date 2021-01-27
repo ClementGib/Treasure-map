@@ -31,6 +31,11 @@ namespace BAL
         // Adventurer of the Map 
         Adventurer TheAdventurer;
 
+        public Adventurer Adventurer
+        {
+            get => TheAdventurer;
+        }
+
         /* Init Map */
         public Map(Instruction P_Instruction)
         {
@@ -237,6 +242,36 @@ namespace BAL
 
 
 
+        public void getTreasure(byte P_x, byte P_y)
+        {
+            Position ChestPosition = new Position(P_x, P_y);
+            try
+            {
+
+                //Check all the element to compare the positions
+                foreach (var position in mapGrids)
+                {
+                    if (PositionComparer.EqualsPositions(position.Key, ChestPosition))
+                    {
+                        Treasure elem = (Treasure)position.Value;
+                        elem.getChest();
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+
+                }
+
+
+            }
+            catch(Exception exeption)
+            {
+            }
+            
+        }
+
         /* Map state */
         public static bool isInit()
         {
@@ -258,20 +293,27 @@ namespace BAL
             instance = null;
 
         }
-        public void updateMapGrid(string P_map_instruction)
+        public void updateMapGrid()
         {
-
-            width = Byte.Parse(P_map_instruction.Split(" - ")[0]);
-            height = Byte.Parse(P_map_instruction.Split(" - ")[1]);
-
-            for (byte index_height = 0; index_height < height; index_height++)
+            foreach (var position in mapGrids)
             {
-                for (byte index_width = 0; index_width < width; index_width++)
+                if (getTypeElement(position.Key) =="Treasure")
                 {
-                    //define all the map with plain surface
-                    //mapGrid.Add(new Plain(), new byte[index_width, index_height]);
+                    Treasure treasure = (Treasure)position.Value;
 
+
+                    //if treasure is null this is a Plain
+                    if (treasure.getChests() == 0)
+                    {
+                        Surface surface = position.Value;
+                        surface = new Plain();
+                    }
                 }
+                else
+                {
+                    continue;
+                }
+
             }
         }
 

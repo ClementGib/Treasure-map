@@ -17,6 +17,13 @@
     src: url("/content/fonts/VT323-Regular.ttf");
 }
 
+@font-face {
+    font-family: "Crafter";
+    src: url("/content/fonts/Crafter.Reg.ttf");
+}
+
+
+
 body {
     font-family: "Roboto";
     text-align: center;
@@ -27,7 +34,7 @@ body {
     font-size: 62.5%;
     --size-divisor: 3;
     /* A définir */
-    --text-size: 1.5rem;
+    --text-size: 3rem;
     --label-size: 3rem;
     --title-size: 6rem;
     --log-size: 3rem;
@@ -43,6 +50,12 @@ body {
     --lose-color: #e53f48;
     --primary-text-color: #000000;
     --secondary-text-color: #FFFFFF;
+}
+
+p {
+    font-size: var(--text-size);
+    font-weight: 8px;
+    color: var(--lose-color);
 }
 
 h1 {
@@ -144,7 +157,7 @@ header img {
 #map {
     position: absolute;
     top: 22rem;
-    left: 85rem;
+    left: 36rem;
     width: 130rem;
     height: 75rem;
 }
@@ -153,10 +166,17 @@ header img {
     position: absolute;
 }
 
+#move-button {
+    position: absolute;
+    bottom: 10rem;
+    left: 45%;
+    text-align:center;
+}
+
 /* ========================================================================== */
 /* SECTION INPUT */
 /* ========================================================================== */
-.log-error {
+#log-text {
     color: var(--secondary-color);
 }
 
@@ -279,3 +299,35 @@ input[type="file"] {
         text-shadow: 1px 1px 0px var(--primary-text-color);
         cursor: auto;
     }
+
+
+
+/* ========================================================================== */
+/* MAP */
+/* ========================================================================== */
+
+.grid {
+}
+
+.grid-row {
+    display:flex;
+}
+.grid-column {
+    position:relative;
+}
+
+.grid img{
+}
+
+.treasure-number {
+    position: absolute;
+    font
+    right: 20%;
+    top: 20%;
+}
+
+#adventurer {
+    position: absolute;
+    right: 20%;
+    top: 20%;
+}

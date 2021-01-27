@@ -24,26 +24,16 @@
         <h1>La carte aux trésors</h1>
         <div class="map-background">
             <img src="/content/images/map.png" alt="" />
+            <button id="move-button" onclick="adventurerMove()">Avancer</button>
         </div>
         <div id="map">
-
-            <script>
-                function saveTextAsFile() {
-                    var fs = require('fs');
-
-                    fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
-                        if (err) throw err;
-                        console.log('Saved!');
-                    });
-                }
-            </script>
         </div>
     </section>
 
     <!-- SELECTED FILE FORM-->
     <section class="input-map">
         <div class="log">
-            <h2 class="log-error"></h2>
+            <h2 id="log-text" ></h2>
         </div>
 
         <div class="inputs">
@@ -52,7 +42,7 @@
                 <form class="form-file" action="" method="get">
                     <label for="file-selector">Choisir un fichier</label>
                     <input type="file" id="file-selector" hidden />
-                    <input id="file-sender" type="submit" value="Envoyer" />
+                    <input id="file-sender" onclick="SendFile()" value="Envoyer" />
                 </form>
             </div>
 
@@ -70,7 +60,7 @@ T - 0 - 3 - 2
 T - 1 - 3 - 3
 # {Aventurier} - {Nom} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Mouvement}
 A - Lara - 1 - 1 - S - AADADAGGA</textarea>
-                <input onclick="SendData()" value="Envoyer" />
+                <input onclick="SendText()" value="Envoyer" />
             </div>
             <div class="output-download">
                 <div class="download-div">
