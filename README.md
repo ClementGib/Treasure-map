@@ -48,15 +48,23 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
   
   * Le projet de test permet de valider la couche fonctionnelle de l'application en cas d'évolution
   
+![](image/screen.png) 
+  
 ### Insersion de données :
-<p>L'insersion des données se fait au travers d'un </p>
+<p>L'insersion des instructions se fait à l'aide de : </p>
 
-`textarea` ou d'un `fichier.txt`
+un fomulaire `textarea` ou un `fichier.txt`
 
-
-
-<p>L'application permet de générer un fichier de sortie indiquant la position de la carte actuelle sous forme de text </p>
+<p>L'application permet de générer un fichier de sortie indiquant la nouvelle position des points sur la carte</p>
  
+![](image/form.PNG )
+
+
+
+### Démonstration 
+
+![](image/treasure-map.gif)
+
 
 ## Prérequis :
 `.NET CORE SDK 5.0`
