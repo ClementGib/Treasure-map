@@ -31,20 +31,21 @@ lisible, et maintenable (oui, ça veut dire avec des tests) ! </p>
 <p> A - Lara - 0 - 3 - S - 3 </p>
 
 ## Prérequis :
-.NET CORE  `5.0` has `back-ticks around` it.
+`.NET CORE SDK 5.0`
+`IIS sever (IIS Express de Visual Studio ou VSCode extension)`
 
 ### Lancer le projet :
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
+<p>Restaurer les dépandances</p>
+```console
+dotnet restore
 ```
  
-```python
-s = "Python syntax highlighting"
-print s
+<p>Construire le projet</p>
+```console
+dotnet restore
 ```
- 
-```
-No language indicated, so no syntax highlighting. 
-But let's throw in a <b>tag</b>.
+
+<p>Lancer le projet</p>
+```console
+dotnet run 
 ```
