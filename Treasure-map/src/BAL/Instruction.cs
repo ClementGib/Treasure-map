@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BAL
 {
+    //Instruction from input to create the Map
     public sealed class Instruction
     {
-        private Dictionary<int, string> commentaries = new Dictionary< int, string>();
-        private string map_instruction;
-        private List<string> mountain_instruction = new List<string>();
-        private List<string> treasure_instruction = new List<string>();
-        private string adventurer_instruction;
+
+        private Dictionary<int, string> commentaries = new Dictionary<int, string>();
+        private string mapInstruction;
+        private List<string> mountainInstruction = new List<string>();
+        private List<string> treasureInstruction = new List<string>();
+        private string adventurerInstruction;
 
 
-
+        //Default constructor
         public Instruction()
         {
 
         }
 
+        //Parameterized constructor
         public Instruction(Dictionary<int, string> P_commentaries,
             string P_map_instruction,
             List<string> P_mountain_instruction,
@@ -28,82 +30,86 @@ namespace BAL
             )
         {
             commentaries = P_commentaries;
-            map_instruction = P_map_instruction;
-            mountain_instruction = P_mountain_instruction;
-            treasure_instruction = P_treasure_instruction;
-            adventurer_instruction = P_adventurer_instruction;
+            mapInstruction = P_map_instruction;
+            mountainInstruction = P_mountain_instruction;
+            treasureInstruction = P_treasure_instruction;
+            adventurerInstruction = P_adventurer_instruction;
 
         }
 
 
-
-        public Dictionary<int, string> Commentaries{
+        //Getter & Setter of commentaries
+        public Dictionary<int, string> Commentaries
+        {
             get => commentaries;
             set
             {
+                //check
                 var item = value.First();
-                   if (!commentaries.ContainsKey( item.Key))
-                    {
-                        commentaries.Add(item.Key,item.Value);
-                    }
+                if (!commentaries.ContainsKey(item.Key))
+                {
+                    commentaries.Add(item.Key, item.Value);
+                }
                 else
                 {
                     throw new ArgumentException("Instruction commentaries is incorrectly set");
 
                 }
-                
+
             }
         }
-        public string Map_instruction
+        //Getter & Setter of mapInstruction
+        public string MapInstruction
         {
-            get => map_instruction;
+            get => mapInstruction;
             set
             {
                 //if instruction still composed of the letter : C
                 if (value.Split(" - ").Length == 3 && char.Parse(value.Split(" - ")[0]) == 'C')
                 {
                     //keep just the map instructions
-                    map_instruction = value.Split(" - ")[1] +" - "+ value.Split(" - ")[2];
+                    mapInstruction = value.Split(" - ")[1] + " - " + value.Split(" - ")[2];
                 }
                 else
                 {
-                    if(value.Split(" - ").Length == 2)
+                    if (value.Split(" - ").Length == 2)
                     {
                         //already refactor
-                        map_instruction = value;
+                        mapInstruction = value;
                     }
                     else
                     {
-                        if(value == "")
+                        if (value == "")
                         {
-                            map_instruction = "";
+                            mapInstruction = "";
                         }
                         else
                         {
                             throw new ArgumentException("Instruction map is incorrectly set");
                         }
-                        
+
 
                     }
                 }
-                
+
             }
         }
 
-        public List<string> Mountain_instruction
+        //Getter & Setter of mountainInstruction
+        public List<string> MountainInstruction
         {
-            get => mountain_instruction;
+            get => mountainInstruction;
             set
             {
-                 List<string> temp_instruction = new List<string>();
+                List<string> temp_instruction = new List<string>();
 
-                foreach(string mountain_insctruction in value)
+                foreach (string mountain_insctruction in value)
                 {
                     //if instruction still composed of the letter : M
                     if (mountain_insctruction.Split(" - ").Length == 3 && char.Parse(mountain_insctruction.Split(" - ")[0]) == 'M')
                     {
                         //keep just the map instructions
-                        temp_instruction.Add(mountain_insctruction.Split(" - ")[1] + " - " + mountain_insctruction.Split(" - ")[2]) ;
+                        temp_instruction.Add(mountain_insctruction.Split(" - ")[1] + " - " + mountain_insctruction.Split(" - ")[2]);
                     }
                     else
                     {
@@ -120,16 +126,17 @@ namespace BAL
                     }
                 }
 
-                mountain_instruction = temp_instruction;
+                mountainInstruction = temp_instruction;
             }
         }
-        public List<string> Treasure_instruction
+        //Getter & Setter of treasureInstruction
+        public List<string> TreasureInstruction
         {
-            get => treasure_instruction;
+            get => treasureInstruction;
             set
             {
 
-             
+
                 List<string> temp_instruction = new List<string>();
 
                 foreach (string treasure_instruction in value)
@@ -138,8 +145,8 @@ namespace BAL
                     if (treasure_instruction.Split(" - ").Length == 4 && char.Parse(treasure_instruction.Split(" - ")[0]) == 'T')
                     {
                         //keep just the map instructions
-                        temp_instruction.Add(treasure_instruction.Split(" - ")[1] 
-                            + " - " + treasure_instruction.Split(" - ")[2] 
+                        temp_instruction.Add(treasure_instruction.Split(" - ")[1]
+                            + " - " + treasure_instruction.Split(" - ")[2]
                             + " - " + treasure_instruction.Split(" - ")[3]);
                     }
                     else
@@ -157,21 +164,21 @@ namespace BAL
                     }
                 }
 
-                treasure_instruction = temp_instruction;
+                treasureInstruction = temp_instruction;
 
             }
         }
 
         public string Adventurer_instruction
         {
-            get => adventurer_instruction;
+            get => adventurerInstruction;
             set
             {
                 //if instruction still composed of the letter : A
                 if (value.Split(" - ").Length == 6 && char.Parse(value.Split(" - ")[0]) == 'A')
                 {
                     //keep just the map instructions
-                    adventurer_instruction = value.Split(" - ")[1]
+                    adventurerInstruction = value.Split(" - ")[1]
                         + " - " + value.Split(" - ")[2]
                         + " - " + value.Split(" - ")[3]
                         + " - " + value.Split(" - ")[4]
@@ -182,13 +189,13 @@ namespace BAL
                     if (value.Split(" - ").Length == 5)
                     {
                         //already refactor
-                        adventurer_instruction = value;
+                        adventurerInstruction = value;
                     }
                     else
                     {
                         if (value == "")
                         {
-                            adventurer_instruction = "";
+                            adventurerInstruction = "";
                         }
                         else
                         {
@@ -203,16 +210,17 @@ namespace BAL
         //if an element is not set in the instructions
         public bool isNull()
         {
-            if (String.IsNullOrEmpty(map_instruction) || String.IsNullOrEmpty(adventurer_instruction) || !mountain_instruction.Any() || !treasure_instruction.Any())
+            if (String.IsNullOrEmpty(mapInstruction) || String.IsNullOrEmpty(adventurerInstruction) || !mountainInstruction.Any() || !treasureInstruction.Any())
             {
                 return true;
             }
-            else{
+            else
+            {
                 return false;
             }
-            
+
         }
 
-  
+
     }
 }

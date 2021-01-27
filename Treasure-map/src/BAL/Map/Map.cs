@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 using DAL;
 
 
 namespace BAL
 {
+    //Object serializable to JSON
     [Serializable()]
     public sealed class Map : ISerializable
     {
@@ -43,12 +41,12 @@ namespace BAL
             try
             {
                 //check map size 
-                if ((Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[0]) > 0 && Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[0]) < width_max)
+                if ((Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]) > 0 && Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]) < width_max)
                     &&
-                    (Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[1]) > 0 && Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[1]) < height_max))
+                    (Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]) > 0 && Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]) < height_max))
                 {
-                    width = Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[0]);
-                    height = Byte.Parse(P_Instruction.Map_instruction.Split(" - ")[1]);
+                    width = Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]);
+                    height = Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]);
                 }
                 else
                 {
@@ -78,7 +76,7 @@ namespace BAL
                 Dictionary<Position, Surface> temp_mapGrids = new Dictionary<Position, Surface>();
 
                 //Add the mountain(s) to the map
-                foreach (string mountain in P_Instruction.Mountain_instruction)
+                foreach (string mountain in P_Instruction.MountainInstruction)
                 {
                     //set the position (x & y) to a temp Position object
                     Position L_Position = new Position(Byte.Parse(mountain.Split(" - ")[0]), Byte.Parse(mountain.Split(" - ")[1]));
@@ -94,7 +92,7 @@ namespace BAL
 
                 }
                 //Add the treasure(s) to the map
-                foreach (string treasure in P_Instruction.Treasure_instruction)
+                foreach (string treasure in P_Instruction.TreasureInstruction)
                 {
                     //set the position (x & y) to a temp Position object
                     Position L_Position = new Position(Byte.Parse(treasure.Split(" - ")[0]), Byte.Parse(treasure.Split(" - ")[1]));
@@ -242,35 +240,7 @@ namespace BAL
 
 
 
-        public void getTreasure(byte P_x, byte P_y)
-        {
-            Position ChestPosition = new Position(P_x, P_y);
-            try
-            {
 
-                //Check all the element to compare the positions
-                foreach (var position in mapGrids)
-                {
-                    if (PositionComparer.EqualsPositions(position.Key, ChestPosition))
-                    {
-                        Treasure elem = (Treasure)position.Value;
-                        elem.getChest();
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-
-                }
-
-
-            }
-            catch(Exception exeption)
-            {
-            }
-            
-        }
 
         /* Map state */
         public static bool isInit()
@@ -297,7 +267,7 @@ namespace BAL
         {
             foreach (var position in mapGrids)
             {
-                if (getTypeElement(position.Key) =="Treasure")
+                if (getTypeElement(position.Key) == "Treasure")
                 {
                     Treasure treasure = (Treasure)position.Value;
 
@@ -319,7 +289,35 @@ namespace BAL
 
 
 
+
+
         /* Map operations*/
+        
+        //check if the position is accessible
+        private bool isAccessible(Position P_Position)
+        {
+            foreach (var position in mapGrids)
+            {
+                if (PositionComparer.EqualsPositions(position.Key, P_Position))
+                {
+                    if (position.Value.GetType().Name == "Treasure")
+                    {
+                        Treasure temp = (Treasure)position.Value;
+                        temp.takeChest();
+                    }
+
+                    return position.Value.isAccessible();
+
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return false;
+        }
+
+        //return the type of the surface with the position
         private string getTypeElement(Position P_Position)
         {
 
@@ -340,26 +338,42 @@ namespace BAL
             return "Plain";
         }
 
-        private bool isAccessible(Position P_Position)
+        //get the treasure 
+        //TODO
+        public void getTreasure(byte P_x, byte P_y)
         {
-            foreach (var position in mapGrids)
+            Position ChestPosition = new Position(P_x, P_y);
+            try
             {
-                if (PositionComparer.EqualsPositions(position.Key, P_Position))
-                {
 
-                    return position.Value.getAccessible();
+                //Check all the element to compare the positions
+                foreach (var position in mapGrids)
+                {
+                    if (PositionComparer.EqualsPositions(position.Key, ChestPosition))
+                    {
+                        Treasure elem = (Treasure)position.Value;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
 
                 }
-                else
-                {
-                    continue;
-                }
+
+
             }
-            return false;
+            catch (Exception exeption)
+            {
+            }
+
         }
 
 
+
         /* Adventurer game*/
+
+        //Move adventurer step by step
         public void AdventurerMoveStepByStep()
         {
             Position nextPosition = TheAdventurer.wantMove();
@@ -371,6 +385,8 @@ namespace BAL
 
             }
         }
+
+        //Move Adventurer to the final step 
         public void AdventurerFinishMovement()
         {
             for (int index_movement = 0; index_movement < TheAdventurer.Movement.Length; index_movement++)
@@ -387,6 +403,8 @@ namespace BAL
 
         }
 
+
+        //Get all the treasure of the Map
         public int getNumberOfTreasure()
         {
             int numberChest = 0;

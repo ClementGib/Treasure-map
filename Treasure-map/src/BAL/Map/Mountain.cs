@@ -1,34 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 
 namespace BAL
 {
+    //Object serializable to JSON
     [Serializable()]
     public sealed class Mountain : Surface, ISerializable
-{
+    {
 
         public Mountain()
         {
             accessible = false;
 
             var rand = new Random();
-            imageNumber = rand.Next(1,6);
-            
+            imageNumber = rand.Next(1, 6);
+
         }
 
-        public override bool getAccessible()
+        public override bool isAccessible()
         {
             return accessible;
         }
 
-        public override int getImageValue()
+        public override int getImageNumber()
         {
             return imageNumber;
         }
 
+        //Serialization method
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             try

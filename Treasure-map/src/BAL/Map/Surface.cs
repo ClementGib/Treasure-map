@@ -1,21 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace BAL
+
+
+//Super-class of Surfaces : Plain, Mountain, Treasure
 {
+    //Object serializable to JSON
     [Serializable()]
-    public abstract class Surface  : ISerializable
+    public abstract class Surface : ISerializable
     {
+
         protected bool accessible;
         protected int imageNumber;
 
+        //is accessible for the adventurer
+        public abstract bool isAccessible();
 
-        public abstract bool getAccessible();
-        public abstract int getImageValue();
+        //image number of randomize the Map
+        public abstract int getImageNumber();
 
+
+        //Serialization method
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             try

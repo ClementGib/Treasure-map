@@ -31,7 +31,6 @@
     <None Include="wwwroot\content\txt\output.txt" />
     <None Include="wwwroot\index.html" />
     <None Include="wwwroot\js\script.js" />
-    <None Include="wwwroot\js\test.js" />
     <None Include="wwwroot\style\StyleSheet.css" />
   </ItemGroup>
 

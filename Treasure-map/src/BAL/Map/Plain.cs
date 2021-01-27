@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace BAL
 {
+    //Object serializable to JSON
     [Serializable()]
     public sealed class Plain : Surface, ISerializable
     {
-
+        //Constructor
         public Plain()
         {
             accessible = true;
@@ -19,16 +17,23 @@ namespace BAL
             
         }
 
-        public override bool getAccessible()
+        //is accessible for the adventurer
+        public override bool isAccessible()
         {
             return accessible;
         }
 
-        public override int getImageValue()
+
+
+        //image number of randomize the Map
+        public override int getImageNumber()
         {
             return imageNumber;
         }
 
+  
+
+        //Serialization method
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             try

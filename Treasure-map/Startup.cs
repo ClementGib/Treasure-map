@@ -193,7 +193,7 @@ namespace Treasure_map
 
 
                         //get a treasure from the box
-                        Program.TheMap.getTreasure(P_x, P_y);
+                        //Program.TheMap.getTreasure(P_x, P_y);
                         //transform null treasure to Plain
                         Program.TheMap.updateMapGrid();
 

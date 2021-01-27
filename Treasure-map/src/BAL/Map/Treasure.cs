@@ -1,24 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace BAL
 {
+    //Object serializable to JSON
     [Serializable()]
     public sealed class Treasure : Surface, ISerializable
     {
-        const byte number_max = 5;
+
+        const byte numberMax = 5;
         private byte numberChest;
+
 
         public Treasure(byte P_treasureNumber)
         {
 
             accessible = true;
             //number_max of treasure is defined as 5
-            numberChest = P_treasureNumber >= number_max ? number_max : P_treasureNumber;
+            numberChest = P_treasureNumber >= numberMax ? numberMax : P_treasureNumber;
             setImage();
+        }
+
+
+
+
+        //get image number
+        public override int getImageNumber()
+        {
+            return imageNumber;
+        }
+
+        //is accessible for the adventurer
+        public override bool isAccessible()
+        {
+
+            return accessible;
+        }
+
+
+
+
+   
+        //adventurer take a chest
+        public void takeChest()
+        {
+            if (numberChest >= 0)
+            {
+                numberChest--;
+                setImage();
+            }
         }
 
 
@@ -27,33 +57,10 @@ namespace BAL
             return numberChest;
         }
 
-        public void getChest()
-        {
-            if (numberChest > 0)
-            {
-                numberChest--;
-                setImage();
-            }
 
-        }
+  
 
-        public override bool getAccessible()
-        {
-            if (numberChest >= 0)
-            {
-                numberChest--;
-                setImage();
-            }
-            return accessible;
-        }
-
-
-        public override int getImageValue()
-        {
-            return imageNumber;
-        }
-
-
+        //set image show the changement in the UI
         private void setImage()
         {
 
@@ -91,6 +98,8 @@ namespace BAL
             }
         }
 
+
+        //Serialization method
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             try

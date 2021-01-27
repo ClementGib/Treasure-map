@@ -1,21 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BAL
 {
 
+    //Object serializable to JSON
     [Serializable()]
     public sealed class Adventurer : ISerializable
     {
+        //Name Adventurer
         string name;
+
+        //Position on the map
         byte xPosition;
         byte yPosition;
 
+        //orientation (Notrh, South, East, West)
         char orientation;
+
+        //array of movement
         char[] movement;
 
         //step of movements array set to 0 before the adventurer moves 
@@ -54,7 +57,41 @@ namespace BAL
             movement = P_adventurer_instruction.Split(" - ")[4].ToCharArray();
         }
 
-        /* check if possible to move*/
+
+
+
+        //get the next position of Adventurer
+        public Position getNextPosition()
+        {
+            switch (orientation)
+            {
+                //North
+                case 'N':
+                    return new Position(xPosition, yPosition - 1);
+
+                //South
+                case 'S':
+                    return new Position(xPosition, yPosition + 1);
+
+
+                //East
+                case 'E':
+                    return new Position(xPosition + 1, yPosition);
+
+                //West
+                case 'W':
+                    return new Position(xPosition - 1, yPosition);
+
+                default:
+                    return new Position(xPosition, yPosition);
+            }
+
+        }
+
+
+        /* Movement*/
+
+        //check if possible to move
         public Position wantMove()
         {
             if (movementStep < movement.Length)
@@ -85,35 +122,9 @@ namespace BAL
 
         }
 
-        public Position getNextPosition()
-        {
-            switch (orientation)
-            {
-                //North
-                case 'N':
-                    return new Position(xPosition, yPosition - 1);
-
-                //South
-                case 'S':
-                    return new Position(xPosition, yPosition + 1);
-
-
-                //East
-                case 'E':
-                    return new Position(xPosition + 1, yPosition);
-
-                //West
-                case 'W':
-                    return new Position(xPosition - 1, yPosition);
-
-                default:
-                    return new Position(xPosition, yPosition);
-            }
-
-        }
-
 
         /* Movement */
+        //Move to the next the next position
         public void moveNextStep()
         {
             if (movementStep < movement.Length)
@@ -140,6 +151,8 @@ namespace BAL
             }
 
         }
+
+        //Move forward
         public void forwardMove()
         {
             switch (orientation)
@@ -170,6 +183,9 @@ namespace BAL
             }
 
         }
+
+
+        //Spin movement
         public void spinMove(char P_movement)
         {
             if (P_movement == 'D')
@@ -241,6 +257,7 @@ namespace BAL
 
         }
 
+        //Serialization method
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             try
