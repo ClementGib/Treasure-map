@@ -46,11 +46,8 @@ dotnet restore
 ```
 
 <p>Lancer le projet</p>
+
 ```console
 dotnet run 
 ```
 
-```console
-foo@bar:~$ whoami
-foo
-```
