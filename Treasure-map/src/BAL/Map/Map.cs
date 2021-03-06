@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-using DAL;
-
 
 namespace BAL
 {
     //Object serializable to JSON
     [Serializable()]
-    public sealed class Map : ISerializable
+    public class Map : ISerializable
     {
-        // Singleton instance
-        private static Map instance = null;
 
 
-        private const byte width_max = 125;
-        private const byte height_max = 250;
+
+        private const byte MAXIMUM_WIDTH_OF_MAP = 125;
+        private const byte MAXIMUM_HEIGHT_OF_MAP = 250;
 
         //X axe
         private static byte width = 0;
@@ -41,16 +38,16 @@ namespace BAL
             try
             {
                 //check map size 
-                if ((Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]) > 0 && Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]) < width_max)
+                if ((Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]) > 0 && Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]) < MAXIMUM_WIDTH_OF_MAP)
                     &&
-                    (Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]) > 0 && Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]) < height_max))
+                    (Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]) > 0 && Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]) < MAXIMUM_HEIGHT_OF_MAP))
                 {
                     width = Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[0]);
                     height = Byte.Parse(P_Instruction.MapInstruction.Split(" - ")[1]);
                 }
                 else
                 {
-                    throw new ArgumentException("Map size is incorrectly defined (should be superior to 0 and inferior to the max size width:" + width_max + " height:" + height_max);
+                    throw new ArgumentException("Map size is incorrectly defined (should be superior to 0 and inferior to the max size width:" + MAXIMUM_WIDTH_OF_MAP + " height:" + MAXIMUM_HEIGHT_OF_MAP);
                 }
 
 
@@ -81,7 +78,7 @@ namespace BAL
                     //set the position (x & y) to a temp Position object
                     Position L_Position = new Position(Byte.Parse(mountain.Split(" - ")[0]), Byte.Parse(mountain.Split(" - ")[1]));
 
-                    if (checkPositionIsDefined(temp_mapGrids, L_Position))
+                    if (checkIfPositionIsDefined(temp_mapGrids, L_Position))
                     {
                         temp_mapGrids.Add(new Position(L_Position.X, L_Position.Y), new Mountain());
                     }
@@ -97,7 +94,7 @@ namespace BAL
                     //set the position (x & y) to a temp Position object
                     Position L_Position = new Position(Byte.Parse(treasure.Split(" - ")[0]), Byte.Parse(treasure.Split(" - ")[1]));
 
-                    if (checkPositionIsDefined(L_Position))
+                    if (checkIfPositionIsDefined(L_Position))
                     {
                         // create Treasure with the quantity
                         temp_mapGrids.Add(new Position(L_Position.X, L_Position.Y), new Treasure(Byte.Parse(treasure.Split(" - ")[2])));
@@ -116,7 +113,7 @@ namespace BAL
                     for (byte index_width = 0; index_width < width; index_width++)
                     {
                         Position L_Position = new Position(index_width, index_height);
-                        if (checkPositionIsDefined(temp_mapGrids, L_Position))
+                        if (checkIfPositionIsDefined(temp_mapGrids, L_Position))
                         {
                             // add ordered plain surface with position in the map grid
                             mapGrids.Add(new Position(index_width, index_height), new Plain());
@@ -163,15 +160,7 @@ namespace BAL
             }
 
         }
-        public static Map GetInstance(Instruction P_Instruction)
-        {
-            if (instance == null)
-            {
-                instance = new Map(P_Instruction);
-            }
-            return instance;
-        }
-        public bool checkPositionIsDefined(Position P_Position)
+        public bool checkIfPositionIsDefined(Position P_Position)
         {
             //Check all the element to compare the positions
             foreach (var position in mapGrids)
@@ -188,7 +177,7 @@ namespace BAL
 
             return true;
         }
-        public bool checkPositionIsDefined(Dictionary<Position, Surface> P_mapGrids, Position P_Position)
+        public bool checkIfPositionIsDefined(Dictionary<Position, Surface> P_mapGrids, Position P_Position)
         {
             //Check all the element to compare the positions
             foreach (var position in P_mapGrids)
@@ -240,27 +229,11 @@ namespace BAL
 
 
 
-
-
-        /* Map state */
-        public static bool isInit()
-        {
-            if (instance == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public static void clearMap()
+        public static void clear()
         {
             width = 0;
             height = 0;
             mapGrids.Clear();
-            instance = null;
 
         }
         public void updateMapGrid()
@@ -292,7 +265,7 @@ namespace BAL
 
 
         /* Map operations*/
-        
+
         //check if the position is accessible
         private bool isAccessible(Position P_Position)
         {
@@ -381,7 +354,7 @@ namespace BAL
 
             if (isAccessible(nextPosition))
             {
-                TheAdventurer.moveNextStep();
+                TheAdventurer.moveToNextStep();
 
             }
         }
@@ -396,7 +369,7 @@ namespace BAL
 
                 if (isAccessible(nextPosition))
                 {
-                    TheAdventurer.moveNextStep();
+                    TheAdventurer.moveToNextStep();
 
                 }
             }

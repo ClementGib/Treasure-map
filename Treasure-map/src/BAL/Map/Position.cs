@@ -10,8 +10,6 @@ namespace BAL
         private int y;
 
 
-
-
         public Position(int P_x, int P_y)
         {
             x = P_x;

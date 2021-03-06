@@ -11,7 +11,7 @@ let heightMax;
 var outputText = "";
 
 // -----------------------------------------------------------------------------
-//  HTTP QUERY METHODS
+//  HTTP QUERIES METHODS
 // -----------------------------------------------------------------------------
 
 async function SendText() {
@@ -266,6 +266,14 @@ function DisplayMap() {
     }
 }
 
+function PlainImage() {
+    return Math.floor(Math.random() * 5)+1;
+}
+
+function MountainImage() {
+    return Math.floor(Math.random() * 5)+1;
+}
+
 function createLine(P_indexLine) {
 
     //create the line with the size
@@ -301,7 +309,7 @@ function createSurface(P_indexLine, P_columnLine) {
         grid.style.cssText = `width:${100}%;height:${80}%;`;
 
         //set the Plain sprite
-        grid.src = `content/images/P${Surface.imageNumber}.png`;
+        grid.src = `content/images/P${PlainImage()}.png`;
 
     } else if (Surface.surface == "Mountain") {
 
@@ -309,7 +317,7 @@ function createSurface(P_indexLine, P_columnLine) {
         grid.style.cssText = `width:${70}%;height:${100}%;`;
 
         //set the Mountain sprite
-        grid.src = `content/images/M${Surface.imageNumber}.png`;
+        grid.src = `content/images/M${MountainImage()}.png`;
 
     } else {
 

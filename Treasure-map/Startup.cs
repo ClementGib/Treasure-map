@@ -1,21 +1,15 @@
+//using Newtonsoft.Json;
+using BAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Threading.Tasks;
-using System.Web;
-using System.Text;
 using Newtonsoft.Json;
-using System.IO;
 using System;
-//using Newtonsoft.Json;
-using BAL;
+using System.IO;
+using System.Net.Http;
+using System.Text;
 
 
 namespace Treasure_map
@@ -54,7 +48,14 @@ namespace Treasure_map
             app.UseHttpsRedirection();
 
             app.UseDefaultFiles(options);
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = context =>
+                {
+                    context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
+                    context.Context.Response.Headers.Add("Expires", "-1");
+                }
+            });
 
             app.UseRouting();
 
@@ -66,7 +67,7 @@ namespace Treasure_map
                 endpoints.MapPost("/text", async context =>
                 {
                     //clear the map
-                    Map.clearMap();
+                    Map.clear();
 
                     var bodyStr = "";
                     var req = context.Request;
@@ -82,30 +83,30 @@ namespace Treasure_map
                         string json = JsonConvert.SerializeObject(Program.TheMap, Formatting.Indented);
                         await context.Response.WriteAsync(json);
                     }
-                    catch(Exception exception)
+                    catch (Exception exception)
                     {
                         string json = JsonConvert.SerializeObject(exception, Formatting.Indented);
                         await context.Response.WriteAsync(json);
                     }
-                    
+
                 });
 
                 endpoints.MapPost("/file", async context =>
                 {
                     //clear the map
-                    Map.clearMap();
+                    Map.clear();
 
                     try
                     {
 
                         string root = "~/wwwroot/content/txt";
-                    var provider = new MultipartFormDataStreamProvider(root);
+                        var provider = new MultipartFormDataStreamProvider(root);
 
-    
+
 
                     }
                     catch (System.Exception e)
-                    {          
+                    {
                     }
 
                     var bodyStr = "";
@@ -146,7 +147,7 @@ namespace Treasure_map
                     try
                     {
                         Program.TheMap.AdventurerMoveStepByStep();
-                        
+
                         string json = JsonConvert.SerializeObject(Program.TheMap.Adventurer, Formatting.Indented);
                         await context.Response.WriteAsync(json);
                     }
@@ -173,7 +174,7 @@ namespace Treasure_map
                     {
                         //clean x
                         string x = bodyStr.Split(" - ")[0];
-                        string temp="";
+                        string temp = "";
                         for (int index_x = 0; index_x < x.Length; index_x++)
                         {
                             if (Char.IsDigit(x[index_x]))

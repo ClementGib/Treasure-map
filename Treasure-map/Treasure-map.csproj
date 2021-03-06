@@ -12,7 +12,6 @@
 
 
   <ItemGroup>
-    <None Include="wwwroot\content\icons\it.svg" />
     <None Include="wwwroot\content\images\map.png" />
     <None Include="wwwroot\content\images\treasure.png" />
     <None Include="wwwroot\content\images\adventurer.png" />

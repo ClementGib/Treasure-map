@@ -6,7 +6,7 @@ namespace BAL
 
     //Object serializable to JSON
     [Serializable()]
-    public sealed class Adventurer : ISerializable
+    public class Adventurer : ISerializable
     {
         //Name Adventurer
         string name;
@@ -125,13 +125,13 @@ namespace BAL
 
         /* Movement */
         //Move to the next the next position
-        public void moveNextStep()
+        public void moveToNextStep()
         {
             if (movementStep < movement.Length)
             {
                 if (movement[movementStep] == 'A')
                 {
-                    forwardMove();
+                    forwardMovement();
 
                 }
                 else
@@ -139,7 +139,7 @@ namespace BAL
                     if (movement[movementStep] == 'D' || movement[movementStep] == 'G')
                     {
 
-                        spinMove(movement[movementStep]);
+                        spinMovement(movement[movementStep]);
 
 
                     }
@@ -153,7 +153,7 @@ namespace BAL
         }
 
         //Move forward
-        public void forwardMove()
+        public void forwardMovement()
         {
             switch (orientation)
             {
@@ -186,7 +186,7 @@ namespace BAL
 
 
         //Spin movement
-        public void spinMove(char P_movement)
+        public void spinMovement(char P_movement)
         {
             if (P_movement == 'D')
             {

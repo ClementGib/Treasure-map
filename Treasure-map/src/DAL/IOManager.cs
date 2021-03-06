@@ -1,9 +1,8 @@
-﻿using System;
+﻿using BAL;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using BAL;
 
 
 
@@ -12,10 +11,8 @@ namespace DAL
     public sealed class IOManager
     {
 
-        private const byte width_max = 125;
-        private const byte height_max = 250;
-
-
+        private const byte MAXIMUM_WIDTH_OF_MAP = 125;
+        private const byte MAXIMUM_HEIGHT_OF_MAP = 250;
 
 
         // size of instruction in the input file
@@ -33,28 +30,8 @@ namespace DAL
 
         private Instruction instructionFromInput = new Instruction();
 
-        // Singleton instance
-        private static IOManager instance = null;
-
-        private IOManager() { }
-
 
         public Instruction InstructionFromInput { get => instructionFromInput; }
-
-
-
-        //Get Singleton instance
-        public static IOManager GetInstance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new IOManager();
-                }
-                return instance;
-            }
-        }
 
         //Read instructions from a file
         public bool readInstructionsFile(string P_fileName)
@@ -207,7 +184,7 @@ namespace DAL
                                 if (String.IsNullOrEmpty(InstructionFromInput.MapInstruction))
                                 {
                                     //check map size 
-                                    if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) <= width_max) && (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) <= height_max))
+                                    if ((Int32.Parse(L_instructions[1]) >= 0 && Int32.Parse(L_instructions[1]) <= MAXIMUM_WIDTH_OF_MAP) && (Int32.Parse(L_instructions[2]) >= 0 && Int32.Parse(L_instructions[2]) <= MAXIMUM_HEIGHT_OF_MAP))
                                     {
                                         //keep just the map instruction -> setter Map_instruction
                                         InstructionFromInput.MapInstruction = P_inputLines[index_Lines];

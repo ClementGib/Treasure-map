@@ -5,16 +5,13 @@ namespace BAL
 {
     //Object serializable to JSON
     [Serializable()]
-    public sealed class Plain : Surface, ISerializable
+    public class Plain : Surface, ISerializable
     {
         //Constructor
         public Plain()
         {
             accessible = true;
 
-            var rand = new Random();
-            imageNumber = rand.Next(1, 6);
-            
         }
 
         //is accessible for the adventurer
@@ -25,14 +22,6 @@ namespace BAL
 
 
 
-        //image number of randomize the Map
-        public override int getImageNumber()
-        {
-            return imageNumber;
-        }
-
-  
-
         //Serialization method
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
@@ -40,7 +29,6 @@ namespace BAL
             {
                 info.AddValue("surface", this.GetType().Name);
                 info.AddValue("accessible", accessible);
-                info.AddValue("imageNumber", imageNumber);
             }
             catch
             {

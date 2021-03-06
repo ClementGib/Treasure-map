@@ -12,13 +12,11 @@ namespace BAL
     {
 
         protected bool accessible;
-        protected int imageNumber;
 
         //is accessible for the adventurer
         public abstract bool isAccessible();
 
         //image number of randomize the Map
-        public abstract int getImageNumber();
 
 
         //Serialization method
@@ -28,7 +26,6 @@ namespace BAL
             {
                 info.AddValue("surface", this.GetType().Name);
                 info.AddValue("accessible", accessible);
-                info.AddValue("imageNumber", imageNumber);
             }
             catch
             {
